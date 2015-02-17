@@ -1,0 +1,413 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A71FDD8F1A93B0EF008FA7FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */; };
+		A71FDD911A93B0EF008FA7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDD901A93B0EF008FA7FD /* main.m */; };
+		A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD921A93B0EF008FA7FD /* Images.xcassets */; };
+		A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD941A93B0EF008FA7FD /* MainMenu.xib */; };
+		A71FDDA21A93B0EF008FA7FD /* SwipesMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A71FDD9C1A93B0EF008FA7FD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A71FDD801A93B0EF008FA7FD /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A71FDD871A93B0EF008FA7FD;
+			remoteInfo = SwipesMac;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A71FDD881A93B0EF008FA7FD /* SwipesMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwipesMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A71FDD8C1A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A71FDD8D1A93B0EF008FA7FD /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		A71FDD901A93B0EF008FA7FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		A71FDD921A93B0EF008FA7FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		A71FDD951A93B0EF008FA7FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		A71FDD9B1A93B0EF008FA7FD /* SwipesMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipesMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A71FDDA01A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwipesMacTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A71FDD851A93B0EF008FA7FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71FDD981A93B0EF008FA7FD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A71FDD7F1A93B0EF008FA7FD = {
+			isa = PBXGroup;
+			children = (
+				A71FDD8A1A93B0EF008FA7FD /* SwipesMac */,
+				A71FDD9E1A93B0EF008FA7FD /* SwipesMacTests */,
+				A71FDD891A93B0EF008FA7FD /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A71FDD891A93B0EF008FA7FD /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A71FDD881A93B0EF008FA7FD /* SwipesMac.app */,
+				A71FDD9B1A93B0EF008FA7FD /* SwipesMacTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A71FDD8A1A93B0EF008FA7FD /* SwipesMac */ = {
+			isa = PBXGroup;
+			children = (
+				A71FDD8D1A93B0EF008FA7FD /* AppDelegate.h */,
+				A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */,
+				A71FDD921A93B0EF008FA7FD /* Images.xcassets */,
+				A71FDD941A93B0EF008FA7FD /* MainMenu.xib */,
+				A71FDD8B1A93B0EF008FA7FD /* Supporting Files */,
+			);
+			path = SwipesMac;
+			sourceTree = "<group>";
+		};
+		A71FDD8B1A93B0EF008FA7FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A71FDD8C1A93B0EF008FA7FD /* Info.plist */,
+				A71FDD901A93B0EF008FA7FD /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A71FDD9E1A93B0EF008FA7FD /* SwipesMacTests */ = {
+			isa = PBXGroup;
+			children = (
+				A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */,
+				A71FDD9F1A93B0EF008FA7FD /* Supporting Files */,
+			);
+			path = SwipesMacTests;
+			sourceTree = "<group>";
+		};
+		A71FDD9F1A93B0EF008FA7FD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				A71FDDA01A93B0EF008FA7FD /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A71FDD871A93B0EF008FA7FD /* SwipesMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A71FDDA51A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesMac" */;
+			buildPhases = (
+				A71FDD841A93B0EF008FA7FD /* Sources */,
+				A71FDD851A93B0EF008FA7FD /* Frameworks */,
+				A71FDD861A93B0EF008FA7FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SwipesMac;
+			productName = SwipesMac;
+			productReference = A71FDD881A93B0EF008FA7FD /* SwipesMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A71FDD9A1A93B0EF008FA7FD /* SwipesMacTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A71FDDA81A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesMacTests" */;
+			buildPhases = (
+				A71FDD971A93B0EF008FA7FD /* Sources */,
+				A71FDD981A93B0EF008FA7FD /* Frameworks */,
+				A71FDD991A93B0EF008FA7FD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A71FDD9D1A93B0EF008FA7FD /* PBXTargetDependency */,
+			);
+			name = SwipesMacTests;
+			productName = SwipesMacTests;
+			productReference = A71FDD9B1A93B0EF008FA7FD /* SwipesMacTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A71FDD801A93B0EF008FA7FD /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Swipes ApS";
+				TargetAttributes = {
+					A71FDD871A93B0EF008FA7FD = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					A71FDD9A1A93B0EF008FA7FD = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = A71FDD871A93B0EF008FA7FD;
+					};
+				};
+			};
+			buildConfigurationList = A71FDD831A93B0EF008FA7FD /* Build configuration list for PBXProject "SwipesMac" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A71FDD7F1A93B0EF008FA7FD;
+			productRefGroup = A71FDD891A93B0EF008FA7FD /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A71FDD871A93B0EF008FA7FD /* SwipesMac */,
+				A71FDD9A1A93B0EF008FA7FD /* SwipesMacTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A71FDD861A93B0EF008FA7FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
+				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71FDD991A93B0EF008FA7FD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A71FDD841A93B0EF008FA7FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A71FDD911A93B0EF008FA7FD /* main.m in Sources */,
+				A71FDD8F1A93B0EF008FA7FD /* AppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A71FDD971A93B0EF008FA7FD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A71FDDA21A93B0EF008FA7FD /* SwipesMacTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A71FDD9D1A93B0EF008FA7FD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A71FDD871A93B0EF008FA7FD /* SwipesMac */;
+			targetProxy = A71FDD9C1A93B0EF008FA7FD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A71FDD941A93B0EF008FA7FD /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A71FDD951A93B0EF008FA7FD /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A71FDDA31A93B0EF008FA7FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		A71FDDA41A93B0EF008FA7FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		A71FDDA61A93B0EF008FA7FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwipesMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		A71FDDA71A93B0EF008FA7FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = SwipesMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		A71FDDA91A93B0EF008FA7FD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwipesMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwipesMac.app/Contents/MacOS/SwipesMac";
+			};
+			name = Debug;
+		};
+		A71FDDAA1A93B0EF008FA7FD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = SwipesMacTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwipesMac.app/Contents/MacOS/SwipesMac";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A71FDD831A93B0EF008FA7FD /* Build configuration list for PBXProject "SwipesMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71FDDA31A93B0EF008FA7FD /* Debug */,
+				A71FDDA41A93B0EF008FA7FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A71FDDA51A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71FDDA61A93B0EF008FA7FD /* Debug */,
+				A71FDDA71A93B0EF008FA7FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		A71FDDA81A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesMacTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A71FDDA91A93B0EF008FA7FD /* Debug */,
+				A71FDDAA1A93B0EF008FA7FD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A71FDD801A93B0EF008FA7FD /* Project object */;
+}

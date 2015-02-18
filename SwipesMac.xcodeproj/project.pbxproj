@@ -24,6 +24,7 @@
 		A71FDDC31A93B149008FA7FD /* StatusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB81A93B149008FA7FD /* StatusHighlighted@2x.png */; };
 		A71FDDC41A93B149008FA7FD /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDBA1A93B149008FA7FD /* StatusItemView.m */; };
 		A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */; };
+		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		A71FDDB91A93B149008FA7FD /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		A71FDDBA1A93B149008FA7FD /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-notification.aiff"; sourceTree = "<group>"; };
+		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
 		D3953912DBA5109FBD2A0CA5 /* Pods-SwipesMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipesMac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac.debug.xcconfig"; sourceTree = "<group>"; };
 		D5A89C052EFA0132F2D9EDBC /* Pods-SwipesMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipesMac.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,6 +129,7 @@
 		A71FDD8A1A93B0EF008FA7FD /* SwipesMac */ = {
 			isa = PBXGroup;
 			children = (
+				A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */,
 				A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */,
 				A71FDDAB1A93B149008FA7FD /* AddPanel */,
 				A71FDD8D1A93B0EF008FA7FD /* AppDelegate.h */,
@@ -274,6 +277,7 @@
 				A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */,
 				A71FDDC01A93B149008FA7FD /* Status.png in Resources */,
 				A71FDDC21A93B149008FA7FD /* StatusHighlighted.png in Resources */,
+				A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */,
 				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
 				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
 			);

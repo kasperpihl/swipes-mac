@@ -15,11 +15,11 @@
 #define BasicTableViewDragAndDropDataType @"BasicTableViewDragAndDropDataType"
 #pragma mark -
 @interface PanelController () <NSTextFieldDelegate>
-
+@property (nonatomic, strong) NSProgressIndicator *indicator;
 @end
 
 @implementation PanelController
-
+@synthesize indicator = _indicator;
 @synthesize backgroundView = _backgroundView;
 @synthesize delegate = _delegate;
 @synthesize textField = _textField;
@@ -73,17 +73,93 @@
 
 #pragma mark - Public accessors
 -(IBAction)actionSent:(id)sender{
-    NSLog(@"action received: %@", [self.textField stringValue]);
+    NSString *task = [self.textField stringValue];
+    task = [task stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if(task.length > 255)
+        task = [task substringToIndex:255];
+    if(task.length == 0){
+        return;
+    }
     [self.window makeFirstResponder:nil];
     [self.textField setSelectable:NO];
     [self.textField setEditable:NO];
-    NSProgressIndicator* indicator = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(20, 20, 30, 30)];
-    [indicator setStyle:NSProgressIndicatorSpinningStyle];
+    self.indicator = [[NSProgressIndicator alloc] initWithFrame:NSMakeRect(20, 20, 30, 30)];
+    [self.indicator setStyle:NSProgressIndicatorSpinningStyle];
     CGPoint center = CGPointMake(self.addButton.frame.origin.x+self.addButton.frame.size.width/2, self.addButton.frame.origin.y+self.addButton.frame.size.height/2);
-    indicator.frame = CGRectMake(center.x-30/2, center.y-30/2, 30, 30);
+    self.indicator.frame = CGRectMake(center.x-30/2, center.y-30/2, 30, 30);
     self.addButton.hidden = YES;
-    [self.backgroundView addSubview:indicator];
-    [indicator startAnimation:nil];
+    [self.backgroundView addSubview:self.indicator];
+    [self.indicator startAnimation:nil];
+    [self addTaskToServer:task];
+}
+-(void)addTaskToServer:(NSString*)task{
+    NSString *sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
+    if(sessionToken){
+        NSMutableDictionary *syncData = [@{
+                                           @"sessionToken": sessionToken,
+                                           @"changesOnly" : @YES,
+                                           @"hasMoreToSave": @(YES),
+                                           @"platform" : @"mac",
+                                           @"sendLogs": @(YES),
+                                           @"version": [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"]}
+                                         mutableCopy];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+        [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
+        NSString *isoDate = [dateFormatter stringFromDate:[NSDate date]];
+        
+        NSDictionary *taskObject = @{@"title": task, @"schedule":@{@"__type": @"Date",@"iso":isoDate} , @"order": @(-1), @"tempId": [PanelController generateIdWithLength:14]};
+        NSDictionary *objects = @{ @"ToDo":@[taskObject], @"Tag":@[]};
+        [syncData setObject:objects forKey:@"objects"];
+        
+        /* Preparing request */
+        NSError *error;
+        
+        NSString *url = @"http://api.swipesapp.com/v1/sync";
+        
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+        [request setTimeoutInterval:35];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:syncData
+                                                           options:0 // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        
+        if(error){
+            
+        }
+        
+        
+        [request setHTTPMethod:@"POST"];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        [request setHTTPBody:jsonData];
+        
+        
+        /* Performing request */
+        NSHTTPURLResponse *response;
+        NSData *resData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh-webview" object:self];
+    }
+    [self.indicator removeFromSuperview];
+    self.indicator = nil;
+    self.addButton.hidden = NO;
+    [self.textField setEditable:YES];
+    [self.textField setSelectable:YES];
+    [self.textField setStringValue:@""];
+    [self.window makeFirstResponder:self.textField];
+    NSSound *sound = [NSSound soundNamed:@"swipes-notification.aiff"];
+    [sound play];
+}
++(NSString*)generateIdWithLength:(NSInteger)length{
+    NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+    NSMutableString *s = [NSMutableString stringWithCapacity:length];
+    for (NSUInteger i = 0; i < length; i++) {
+        u_int32_t r = arc4random() % [alphabet length];
+        unichar c = [alphabet characterAtIndex:r];
+        [s appendFormat:@"%C", c];
+    }
+    return s;
 }
 - (BOOL)hasActivePanel
 {

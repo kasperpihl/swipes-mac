@@ -11,7 +11,7 @@
 #import "WebStorageManagerPrivate.h"
 #import "WebPreferencesPrivate.h"
 #import "WebViewJavascriptBridge.h"
-@interface AppDelegate ()
+@interface AppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
@@ -22,24 +22,37 @@
 @synthesize panelController = _panelController;
 @synthesize menubarController = _menubarController;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-    // Insert code here to initialize your application
+    
+    [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSLog(@"%@",data);
+        if([data isKindOfClass:[NSDictionary class]]){
+            NSString *sessionToken = [data objectForKey:@"sessionToken"];
+            if(sessionToken){
+                [[NSUserDefaults standardUserDefaults] setObject:sessionToken forKey:@"sessionToken"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
         responseCallback(@"Right back atcha");
     }];
-    
+    [self.bridge callHandler:@"register-notifications"];
     [self.bridge registerHandler:@"update-notification" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dictData = data;
         NSNumber *number = [dictData objectForKey:@"number"];
         NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
+        
+        NSArray *notifications = [dictData objectForKey:@"notifications"];
+        [self handleNotifications:notifications];
+        
         responseCallback(@"success");
     }];
-    
     NSURL *url = [NSURL URLWithString:@"http://localhost:9000"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [[[self webView] mainFrame] loadRequest:urlRequest];
     [self.webView setUIDelegate:self];
     [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
+    
     
     
     NSString* dbPath = [WebStorageManager _storageDirectoryPath];
@@ -74,7 +87,10 @@
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
     self.menubarController = [[MenubarController alloc] init];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
+}
+-(void)updateWebview{
+    [self.bridge callHandler:@"refresh"];
 }
 -(void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame{
     NSAlert *alert = [[NSAlert alloc] init];
@@ -83,14 +99,59 @@
     [alert setMessageText:message];
     [alert runModal];
 }
--(void)fireNoti{
+-(void)handleNotifications:(NSArray*)notifications{
+    for( NSUserNotification *notification in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]){
+        [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notification];
+    }
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
+
+    NSDate *currentDate;
+    NSDate *lastScheduledDate;
+    //NSDate *schedDate = [[NSDate date] dateByAddingTimeInterval:4];
+    for (NSDictionary *notifObject in notifications){
+        NSString *title = [notifObject objectForKey:@"title"];
+        NSString *identifier = [notifObject objectForKey:@"objectId"];
+        NSString *dateString = [notifObject objectForKey:@"schedule"];
+        NSDate *scheduleDate = [dateFormatter dateFromString:dateString];
+        //scheduleDate = schedDate;
+        NSNumber *priority = [notifObject objectForKey:@"priority"];
+        BOOL isPriority = NO;
+        if(priority && (id)priority != [NSNull null] && [priority integerValue] == 1){
+            isPriority = YES;
+        }
+        
+        if([scheduleDate isEqualToDate:currentDate]){
+            if(lastScheduledDate){
+                scheduleDate = [lastScheduledDate dateByAddingTimeInterval:2];
+            }
+        }
+        else{
+            currentDate = scheduleDate;
+        }
+        NSString *type = isPriority ? @"priority" : @"normal";
+        [self scheduleNotificationForTime:scheduleDate withTitle:title informativeText:nil priority:isPriority userInfo:@{@"type":type,@"identifier":identifier}];
+        lastScheduledDate = scheduleDate;
+        
+    }
+    NSLog(@"%@",[[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]);
+}
+-(void)scheduleNotificationForTime:(NSDate*)date withTitle:(NSString*)title informativeText:(NSString*)informativeText priority:(BOOL)priority userInfo:(NSDictionary*)userInfo{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = @"Ohh no!";
-    notification.informativeText = [NSString stringWithFormat:@"details details details"];
-    notification.soundName = @"swipes-notification.aiff";
-    notification.deliveryDate = [[NSDate date] dateByAddingTimeInterval:3];
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliverNotification:notification];
-    [[NSUserNotificationCenter defaultUserNotificationCenter] deliveredNotifications];
+    notification.title = title;
+    notification.informativeText = informativeText;
+     notification.soundName = @"swipes-notification.aiff";
+    if(priority){
+        //notification.soundName = @"swipes-priority.aiff";
+    }
+    else{
+        notification.soundName = @"swipes-notification.aiff";
+    }
+    notification.deliveryDate = date;
+    notification.userInfo = userInfo;
+    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
 }
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
     /*
@@ -104,7 +165,6 @@
     [alert addButtonWithTitle:@"Cancel"];
     [alert setMessageText:message];
     NSModalResponse response = [alert runModal];
-    [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(fireNoti) userInfo:nil repeats:NO];
     
     return NSAlertFirstButtonReturn == response;
 }
@@ -112,7 +172,23 @@
 - (void)applicationWillTerminate:(NSNotification *)aNotification {
     // Insert code here to tear down your application
 }
+- (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
+    NSLog(@"should present");
+    return YES;
+}
+- (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
+{
+    NSLog(@"activate %@", [notification.userInfo objectForKey:@"identifier"]);
+}
 
+- (void) userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
+{
+    /*if([NSApplication sharedApplication].isActive){
+        NSSound *notifSound = [NSSound soundNamed:@"swipes-priority.aiff"];
+        [notifSound play];
+    }*/
+    NSLog(@"deliver %@",notification);
+}
 
 
 - (void)dealloc

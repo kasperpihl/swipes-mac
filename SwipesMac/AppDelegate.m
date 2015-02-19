@@ -25,7 +25,6 @@
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSLog(@"%@",data);
         if([data isKindOfClass:[NSDictionary class]]){
             NSString *sessionToken = [data objectForKey:@"sessionToken"];
             if(sessionToken){
@@ -47,7 +46,7 @@
         
         responseCallback(@"success");
     }];
-    NSURL *url = [NSURL URLWithString:@"http://localhost:9000"];
+    NSURL *url = [NSURL URLWithString:@"http://beta.swipesapp.com"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [[[self webView] mainFrame] loadRequest:urlRequest];
     [self.webView setUIDelegate:self];
@@ -83,10 +82,9 @@
         
         [self.webView setPreferences:prefs];
     }
-    
+    self.menubarController = [[MenubarController alloc] init];
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
-    self.menubarController = [[MenubarController alloc] init];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
 }
 -(void)updateWebview{
@@ -136,19 +134,12 @@
         lastScheduledDate = scheduleDate;
         
     }
-    NSLog(@"%@",[[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]);
 }
 -(void)scheduleNotificationForTime:(NSDate*)date withTitle:(NSString*)title informativeText:(NSString*)informativeText priority:(BOOL)priority userInfo:(NSDictionary*)userInfo{
     NSUserNotification *notification = [[NSUserNotification alloc] init];
     notification.title = title;
     notification.informativeText = informativeText;
-     notification.soundName = @"swipes-notification.aiff";
-    if(priority){
-        //notification.soundName = @"swipes-priority.aiff";
-    }
-    else{
-        notification.soundName = @"swipes-notification.aiff";
-    }
+    notification.soundName = @"swipes-notification.aiff";
     notification.deliveryDate = date;
     notification.userInfo = userInfo;
     [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
@@ -169,16 +160,12 @@
     return NSAlertFirstButtonReturn == response;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)aNotification {
-    // Insert code here to tear down your application
-}
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
-    NSLog(@"should present");
     return YES;
 }
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
 {
-    NSLog(@"activate %@", [notification.userInfo objectForKey:@"identifier"]);
+    //NSLog(@"activate %@", [notification.userInfo objectForKey:@"identifier"]);
 }
 
 - (void) userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
@@ -187,7 +174,7 @@
         NSSound *notifSound = [NSSound soundNamed:@"swipes-priority.aiff"];
         [notifSound play];
     }*/
-    NSLog(@"deliver %@",notification);
+    //NSLog(@"deliver %@",notification);
 }
 
 

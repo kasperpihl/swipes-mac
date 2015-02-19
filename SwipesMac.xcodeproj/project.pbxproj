@@ -13,18 +13,18 @@
 		A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD921A93B0EF008FA7FD /* Images.xcassets */; };
 		A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD941A93B0EF008FA7FD /* MainMenu.xib */; };
 		A71FDDA21A93B0EF008FA7FD /* SwipesMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */; };
-		A71FDDBB1A93B149008FA7FD /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDAD1A93B149008FA7FD /* BackgroundView.m */; };
-		A71FDDBC1A93B149008FA7FD /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDAF1A93B149008FA7FD /* MenubarController.m */; };
-		A71FDDBD1A93B149008FA7FD /* Panel.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDB11A93B149008FA7FD /* Panel.m */; };
-		A71FDDBE1A93B149008FA7FD /* Panel.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB21A93B149008FA7FD /* Panel.xib */; };
-		A71FDDBF1A93B149008FA7FD /* PanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDB41A93B149008FA7FD /* PanelController.m */; };
-		A71FDDC01A93B149008FA7FD /* Status.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB51A93B149008FA7FD /* Status.png */; };
-		A71FDDC11A93B149008FA7FD /* Status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB61A93B149008FA7FD /* Status@2x.png */; };
-		A71FDDC21A93B149008FA7FD /* StatusHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB71A93B149008FA7FD /* StatusHighlighted.png */; };
-		A71FDDC31A93B149008FA7FD /* StatusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDB81A93B149008FA7FD /* StatusHighlighted@2x.png */; };
-		A71FDDC41A93B149008FA7FD /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDBA1A93B149008FA7FD /* StatusItemView.m */; };
 		A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */; };
 		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
+		A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E11A95020300BF5D22 /* BackgroundView.m */; };
+		A798D6F01A95020300BF5D22 /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E31A95020300BF5D22 /* MenubarController.m */; };
+		A798D6F11A95020300BF5D22 /* Panel.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E51A95020300BF5D22 /* Panel.m */; };
+		A798D6F21A95020300BF5D22 /* Panel.xib in Resources */ = {isa = PBXBuildFile; fileRef = A798D6E61A95020300BF5D22 /* Panel.xib */; };
+		A798D6F31A95020300BF5D22 /* PanelController.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E81A95020300BF5D22 /* PanelController.m */; };
+		A798D6F41A95020300BF5D22 /* Status.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6E91A95020300BF5D22 /* Status.png */; };
+		A798D6F51A95020300BF5D22 /* Status@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6EA1A95020300BF5D22 /* Status@2x.png */; };
+		A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6EB1A95020300BF5D22 /* StatusHighlighted.png */; };
+		A798D6F71A95020300BF5D22 /* StatusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */; };
+		A798D6F81A95020300BF5D22 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6EE1A95020300BF5D22 /* StatusItemView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +34,20 @@
 			proxyType = 1;
 			remoteGlobalIDString = A71FDD871A93B0EF008FA7FD;
 			remoteInfo = SwipesMac;
+		};
+		A798D6C11A95004100BF5D22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A798D6991A95004000BF5D22;
+			remoteInfo = SwipesHelper;
+		};
+		A798D6C31A95004100BF5D22 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A798D6AC1A95004000BF5D22;
+			remoteInfo = SwipesHelperTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -49,23 +63,24 @@
 		A71FDD9B1A93B0EF008FA7FD /* SwipesMacTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipesMacTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71FDDA01A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwipesMacTests.m; sourceTree = "<group>"; };
-		A71FDDAC1A93B149008FA7FD /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
-		A71FDDAD1A93B149008FA7FD /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
-		A71FDDAE1A93B149008FA7FD /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenubarController.h; sourceTree = "<group>"; };
-		A71FDDAF1A93B149008FA7FD /* MenubarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenubarController.m; sourceTree = "<group>"; };
-		A71FDDB01A93B149008FA7FD /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panel.h; sourceTree = "<group>"; };
-		A71FDDB11A93B149008FA7FD /* Panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panel.m; sourceTree = "<group>"; };
-		A71FDDB21A93B149008FA7FD /* Panel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Panel.xib; sourceTree = "<group>"; };
-		A71FDDB31A93B149008FA7FD /* PanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelController.h; sourceTree = "<group>"; };
-		A71FDDB41A93B149008FA7FD /* PanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanelController.m; sourceTree = "<group>"; };
-		A71FDDB51A93B149008FA7FD /* Status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Status.png; sourceTree = "<group>"; };
-		A71FDDB61A93B149008FA7FD /* Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Status@2x.png"; sourceTree = "<group>"; };
-		A71FDDB71A93B149008FA7FD /* StatusHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusHighlighted.png; sourceTree = "<group>"; };
-		A71FDDB81A93B149008FA7FD /* StatusHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatusHighlighted@2x.png"; sourceTree = "<group>"; };
-		A71FDDB91A93B149008FA7FD /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
-		A71FDDBA1A93B149008FA7FD /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-notification.aiff"; sourceTree = "<group>"; };
 		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
+		A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipesHelper.xcodeproj; path = SwipesHelper/SwipesHelper.xcodeproj; sourceTree = "<group>"; };
+		A798D6E01A95020300BF5D22 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
+		A798D6E11A95020300BF5D22 /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
+		A798D6E21A95020300BF5D22 /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenubarController.h; sourceTree = "<group>"; };
+		A798D6E31A95020300BF5D22 /* MenubarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenubarController.m; sourceTree = "<group>"; };
+		A798D6E41A95020300BF5D22 /* Panel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Panel.h; sourceTree = "<group>"; };
+		A798D6E51A95020300BF5D22 /* Panel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Panel.m; sourceTree = "<group>"; };
+		A798D6E61A95020300BF5D22 /* Panel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Panel.xib; sourceTree = "<group>"; };
+		A798D6E71A95020300BF5D22 /* PanelController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PanelController.h; sourceTree = "<group>"; };
+		A798D6E81A95020300BF5D22 /* PanelController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PanelController.m; sourceTree = "<group>"; };
+		A798D6E91A95020300BF5D22 /* Status.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Status.png; sourceTree = "<group>"; };
+		A798D6EA1A95020300BF5D22 /* Status@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Status@2x.png"; sourceTree = "<group>"; };
+		A798D6EB1A95020300BF5D22 /* StatusHighlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusHighlighted.png; sourceTree = "<group>"; };
+		A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatusHighlighted@2x.png"; sourceTree = "<group>"; };
+		A798D6ED1A95020300BF5D22 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
+		A798D6EE1A95020300BF5D22 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
 		D3953912DBA5109FBD2A0CA5 /* Pods-SwipesMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipesMac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac.debug.xcconfig"; sourceTree = "<group>"; };
 		D5A89C052EFA0132F2D9EDBC /* Pods-SwipesMac.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipesMac.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +124,7 @@
 		A71FDD7F1A93B0EF008FA7FD = {
 			isa = PBXGroup;
 			children = (
+				A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */,
 				A71FDD8A1A93B0EF008FA7FD /* SwipesMac */,
 				A71FDD9E1A93B0EF008FA7FD /* SwipesMacTests */,
 				A71FDD891A93B0EF008FA7FD /* Products */,
@@ -129,9 +145,9 @@
 		A71FDD8A1A93B0EF008FA7FD /* SwipesMac */ = {
 			isa = PBXGroup;
 			children = (
+				A798D6DF1A95020300BF5D22 /* AddPanel */,
 				A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */,
 				A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */,
-				A71FDDAB1A93B149008FA7FD /* AddPanel */,
 				A71FDD8D1A93B0EF008FA7FD /* AppDelegate.h */,
 				A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */,
 				A71FDD921A93B0EF008FA7FD /* Images.xcassets */,
@@ -167,27 +183,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		A71FDDAB1A93B149008FA7FD /* AddPanel */ = {
+		A798D6BD1A95004000BF5D22 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A71FDDAC1A93B149008FA7FD /* BackgroundView.h */,
-				A71FDDAD1A93B149008FA7FD /* BackgroundView.m */,
-				A71FDDAE1A93B149008FA7FD /* MenubarController.h */,
-				A71FDDAF1A93B149008FA7FD /* MenubarController.m */,
-				A71FDDB01A93B149008FA7FD /* Panel.h */,
-				A71FDDB11A93B149008FA7FD /* Panel.m */,
-				A71FDDB21A93B149008FA7FD /* Panel.xib */,
-				A71FDDB31A93B149008FA7FD /* PanelController.h */,
-				A71FDDB41A93B149008FA7FD /* PanelController.m */,
-				A71FDDB51A93B149008FA7FD /* Status.png */,
-				A71FDDB61A93B149008FA7FD /* Status@2x.png */,
-				A71FDDB71A93B149008FA7FD /* StatusHighlighted.png */,
-				A71FDDB81A93B149008FA7FD /* StatusHighlighted@2x.png */,
-				A71FDDB91A93B149008FA7FD /* StatusItemView.h */,
-				A71FDDBA1A93B149008FA7FD /* StatusItemView.m */,
+				A798D6C21A95004100BF5D22 /* SwipesHelper.app */,
+				A798D6C41A95004100BF5D22 /* SwipesHelperTests.xctest */,
 			);
-			path = AddPanel;
+			name = Products;
 			sourceTree = "<group>";
+		};
+		A798D6DF1A95020300BF5D22 /* AddPanel */ = {
+			isa = PBXGroup;
+			children = (
+				A798D6E01A95020300BF5D22 /* BackgroundView.h */,
+				A798D6E11A95020300BF5D22 /* BackgroundView.m */,
+				A798D6E21A95020300BF5D22 /* MenubarController.h */,
+				A798D6E31A95020300BF5D22 /* MenubarController.m */,
+				A798D6E41A95020300BF5D22 /* Panel.h */,
+				A798D6E51A95020300BF5D22 /* Panel.m */,
+				A798D6E61A95020300BF5D22 /* Panel.xib */,
+				A798D6E71A95020300BF5D22 /* PanelController.h */,
+				A798D6E81A95020300BF5D22 /* PanelController.m */,
+				A798D6E91A95020300BF5D22 /* Status.png */,
+				A798D6EA1A95020300BF5D22 /* Status@2x.png */,
+				A798D6EB1A95020300BF5D22 /* StatusHighlighted.png */,
+				A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */,
+				A798D6ED1A95020300BF5D22 /* StatusItemView.h */,
+				A798D6EE1A95020300BF5D22 /* StatusItemView.m */,
+			);
+			name = AddPanel;
+			path = SwipesHelper/AddPanel;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -258,6 +284,12 @@
 			mainGroup = A71FDD7F1A93B0EF008FA7FD;
 			productRefGroup = A71FDD891A93B0EF008FA7FD /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = A798D6BD1A95004000BF5D22 /* Products */;
+					ProjectRef = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				A71FDD871A93B0EF008FA7FD /* SwipesMac */,
@@ -266,18 +298,35 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		A798D6C21A95004100BF5D22 /* SwipesHelper.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = SwipesHelper.app;
+			remoteRef = A798D6C11A95004100BF5D22 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		A798D6C41A95004100BF5D22 /* SwipesHelperTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SwipesHelperTests.xctest;
+			remoteRef = A798D6C31A95004100BF5D22 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		A71FDD861A93B0EF008FA7FD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A71FDDBE1A93B149008FA7FD /* Panel.xib in Resources */,
-				A71FDDC31A93B149008FA7FD /* StatusHighlighted@2x.png in Resources */,
-				A71FDDC11A93B149008FA7FD /* Status@2x.png in Resources */,
 				A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */,
-				A71FDDC01A93B149008FA7FD /* Status.png in Resources */,
-				A71FDDC21A93B149008FA7FD /* StatusHighlighted.png in Resources */,
+				A798D6F21A95020300BF5D22 /* Panel.xib in Resources */,
 				A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */,
+				A798D6F71A95020300BF5D22 /* StatusHighlighted@2x.png in Resources */,
+				A798D6F41A95020300BF5D22 /* Status.png in Resources */,
+				A798D6F51A95020300BF5D22 /* Status@2x.png in Resources */,
+				A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */,
 				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
 				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
 			);
@@ -330,13 +379,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A71FDDBD1A93B149008FA7FD /* Panel.m in Sources */,
-				A71FDDBC1A93B149008FA7FD /* MenubarController.m in Sources */,
-				A71FDDBF1A93B149008FA7FD /* PanelController.m in Sources */,
-				A71FDDC41A93B149008FA7FD /* StatusItemView.m in Sources */,
+				A798D6F11A95020300BF5D22 /* Panel.m in Sources */,
+				A798D6F01A95020300BF5D22 /* MenubarController.m in Sources */,
+				A798D6F31A95020300BF5D22 /* PanelController.m in Sources */,
+				A798D6F81A95020300BF5D22 /* StatusItemView.m in Sources */,
 				A71FDD911A93B0EF008FA7FD /* main.m in Sources */,
 				A71FDD8F1A93B0EF008FA7FD /* AppDelegate.m in Sources */,
-				A71FDDBB1A93B149008FA7FD /* BackgroundView.m in Sources */,
+				A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -454,6 +503,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -466,6 +516,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;

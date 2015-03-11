@@ -11,6 +11,8 @@
 #import "WebStorageManagerPrivate.h"
 #import "WebPreferencesPrivate.h"
 #import "WebViewJavascriptBridge.h"
+
+
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
@@ -63,8 +65,8 @@
     if( [localDBPath isEqualToString:dbPath] == NO) {
         [prefs setAutosaves:YES];  //SET PREFS AUTOSAVE FIRST otherwise settings aren't saved.
         // Define application cache quota
-        static const unsigned long long defaultTotalQuota = 10 * 1024 * 1024; // 10MB
-        static const unsigned long long defaultOriginQuota = 5 * 1024 * 1024; // 5MB
+        static const unsigned long long defaultTotalQuota = 100 * 1024 * 1024; // 10MB
+        static const unsigned long long defaultOriginQuota = 50 * 1024 * 1024; // 5MB
         [prefs setApplicationCacheTotalQuota:defaultTotalQuota];
         [prefs setApplicationCacheDefaultOriginQuota:defaultOriginQuota];
         
@@ -73,9 +75,9 @@
         [prefs setJavaScriptEnabled:YES];
         [prefs setJavaScriptCanOpenWindowsAutomatically:YES];
         [prefs setDatabasesEnabled:YES];
-        [prefs setDeveloperExtrasEnabled:[[NSUserDefaults standardUserDefaults] boolForKey: @"developer"]];
-#ifdef DEBUG
         [prefs setDeveloperExtrasEnabled:YES];
+#ifdef DEBUG
+        
 #endif
         [prefs _setLocalStorageDatabasePath:dbPath];
         [prefs setLocalStorageEnabled:YES];
@@ -86,7 +88,17 @@
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
+    [self.window makeFirstResponder: self.webView];
+    
 }
+-(void)openAddSwipesWithEvent:(NSEvent *)hkEvent object:(AppDelegate*)appDelegate{
+    [self.panelController openPanel];
+}
+/*
+-(void)registerKeyboardShortcuts{
+    DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
+    [c registerHotKeyWithKeyCode:kVK_ANSI_S modifierFlags:(NSControlKeyMask | NSAlternateKeyMask) target:self action:@selector(openAddSwipesWithEvent:object:) object:self];
+}*/
 -(void)updateWebview{
     [self.bridge callHandler:@"refresh"];
 }
@@ -158,6 +170,10 @@
     NSModalResponse response = [alert runModal];
     
     return NSAlertFirstButtonReturn == response;
+}
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
+{
+    return YES;
 }
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{

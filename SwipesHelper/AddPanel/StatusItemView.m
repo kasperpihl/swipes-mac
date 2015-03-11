@@ -15,7 +15,6 @@
 {
     CGFloat itemWidth = [statusItem length];
     CGFloat itemHeight = [[NSStatusBar systemStatusBar] thickness];
-    NSLog(@"item %f",itemHeight);
     NSRect itemRect = NSMakeRect(0.0, 0.0, itemWidth, itemHeight);
     self = [super initWithFrame:itemRect];
     

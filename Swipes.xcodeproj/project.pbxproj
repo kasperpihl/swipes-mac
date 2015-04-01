@@ -7,13 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04F5B427452C5A069E3411D3 /* libPods-SwipesMac.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C41917AFA306E1CFDF702E7 /* libPods-SwipesMac.a */; };
-		A7160C691A95E93D0071409C /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7160C681A95E93D0071409C /* Carbon.framework */; };
 		A71FDD8F1A93B0EF008FA7FD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */; };
 		A71FDD911A93B0EF008FA7FD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDD901A93B0EF008FA7FD /* main.m */; };
 		A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD921A93B0EF008FA7FD /* Images.xcassets */; };
 		A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD941A93B0EF008FA7FD /* MainMenu.xib */; };
-		A71FDDA21A93B0EF008FA7FD /* SwipesMacTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */; };
 		A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */; };
 		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
 		A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E11A95020300BF5D22 /* BackgroundView.m */; };
@@ -26,17 +23,13 @@
 		A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6EB1A95020300BF5D22 /* StatusHighlighted.png */; };
 		A798D6F71A95020300BF5D22 /* StatusHighlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */; };
 		A798D6F81A95020300BF5D22 /* StatusItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6EE1A95020300BF5D22 /* StatusItemView.m */; };
+		A7A3CAEA1ACC089000FC1A53 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7A3CAE91ACC089000FC1A53 /* Cocoa.framework */; };
+		A7A3CAEB1ACC095200FC1A53 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A7160C681A95E93D0071409C /* Carbon.framework */; };
 		A7CF37811AB05D920030C7B4 /* CustomWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = A7CF37801AB05D920030C7B4 /* CustomWebView.m */; };
+		D9508CB5A678B4D9B6132AFE /* libPods-Swipes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57DA7785E7D1C0DE8B3A6ADA /* libPods-Swipes.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A71FDD9C1A93B0EF008FA7FD /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A71FDD801A93B0EF008FA7FD /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A71FDD871A93B0EF008FA7FD;
-			remoteInfo = SwipesMac;
-		};
 		A798D6C11A95004100BF5D22 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
@@ -54,7 +47,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		33C21030267C27494EB518A2 /* Pods-Swipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Swipes/Pods-Swipes.debug.xcconfig"; sourceTree = "<group>"; };
 		3C41917AFA306E1CFDF702E7 /* libPods-SwipesMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipesMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E51A7D33C8F86DDEA5B5C9F /* Pods-Swipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipes.release.xcconfig"; path = "Pods/Target Support Files/Pods-Swipes/Pods-Swipes.release.xcconfig"; sourceTree = "<group>"; };
+		57DA7785E7D1C0DE8B3A6ADA /* libPods-Swipes.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Swipes.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A7160C681A95E93D0071409C /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
 		A71FDD881A93B0EF008FA7FD /* Swipes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Swipes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71FDD8C1A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,7 +59,6 @@
 		A71FDD901A93B0EF008FA7FD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		A71FDD921A93B0EF008FA7FD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		A71FDD951A93B0EF008FA7FD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		A71FDD9B1A93B0EF008FA7FD /* SwipesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwipesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A71FDDA01A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwipesMacTests.m; sourceTree = "<group>"; };
 		A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-notification.aiff"; sourceTree = "<group>"; };
@@ -84,6 +79,7 @@
 		A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatusHighlighted@2x.png"; sourceTree = "<group>"; };
 		A798D6ED1A95020300BF5D22 /* StatusItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatusItemView.h; sourceTree = "<group>"; };
 		A798D6EE1A95020300BF5D22 /* StatusItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatusItemView.m; sourceTree = "<group>"; };
+		A7A3CAE91ACC089000FC1A53 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		A7CF377F1AB05D920030C7B4 /* CustomWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomWebView.h; sourceTree = "<group>"; };
 		A7CF37801AB05D920030C7B4 /* CustomWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomWebView.m; sourceTree = "<group>"; };
 		D3953912DBA5109FBD2A0CA5 /* Pods-SwipesMac.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwipesMac.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,15 +91,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				04F5B427452C5A069E3411D3 /* libPods-SwipesMac.a in Frameworks */,
-				A7160C691A95E93D0071409C /* Carbon.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A71FDD981A93B0EF008FA7FD /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				A7A3CAEB1ACC095200FC1A53 /* Carbon.framework in Frameworks */,
+				A7A3CAEA1ACC089000FC1A53 /* Cocoa.framework in Frameworks */,
+				D9508CB5A678B4D9B6132AFE /* libPods-Swipes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -115,6 +105,8 @@
 			children = (
 				D3953912DBA5109FBD2A0CA5 /* Pods-SwipesMac.debug.xcconfig */,
 				D5A89C052EFA0132F2D9EDBC /* Pods-SwipesMac.release.xcconfig */,
+				33C21030267C27494EB518A2 /* Pods-Swipes.debug.xcconfig */,
+				3E51A7D33C8F86DDEA5B5C9F /* Pods-Swipes.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -122,8 +114,10 @@
 		6F7BE252561BFFE346955A51 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A7A3CAE91ACC089000FC1A53 /* Cocoa.framework */,
 				A7160C681A95E93D0071409C /* Carbon.framework */,
 				3C41917AFA306E1CFDF702E7 /* libPods-SwipesMac.a */,
+				57DA7785E7D1C0DE8B3A6ADA /* libPods-Swipes.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -144,7 +138,6 @@
 			isa = PBXGroup;
 			children = (
 				A71FDD881A93B0EF008FA7FD /* Swipes.app */,
-				A71FDD9B1A93B0EF008FA7FD /* SwipesTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,24 +239,6 @@
 			productReference = A71FDD881A93B0EF008FA7FD /* Swipes.app */;
 			productType = "com.apple.product-type.application";
 		};
-		A71FDD9A1A93B0EF008FA7FD /* SwipesTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A71FDDA81A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesTests" */;
-			buildPhases = (
-				A71FDD971A93B0EF008FA7FD /* Sources */,
-				A71FDD981A93B0EF008FA7FD /* Frameworks */,
-				A71FDD991A93B0EF008FA7FD /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				A71FDD9D1A93B0EF008FA7FD /* PBXTargetDependency */,
-			);
-			name = SwipesTests;
-			productName = SwipesMacTests;
-			productReference = A71FDD9B1A93B0EF008FA7FD /* SwipesTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -275,10 +250,6 @@
 				TargetAttributes = {
 					A71FDD871A93B0EF008FA7FD = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					A71FDD9A1A93B0EF008FA7FD = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = A71FDD871A93B0EF008FA7FD;
 					};
 				};
 			};
@@ -302,7 +273,6 @@
 			projectRoot = "";
 			targets = (
 				A71FDD871A93B0EF008FA7FD /* Swipes */,
-				A71FDD9A1A93B0EF008FA7FD /* SwipesTests */,
 			);
 		};
 /* End PBXProject section */
@@ -341,13 +311,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A71FDD991A93B0EF008FA7FD /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -378,7 +341,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwipesMac/Pods-SwipesMac-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Swipes/Pods-Swipes-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -399,23 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A71FDD971A93B0EF008FA7FD /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A71FDDA21A93B0EF008FA7FD /* SwipesMacTests.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A71FDD9D1A93B0EF008FA7FD /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A71FDD871A93B0EF008FA7FD /* Swipes */;
-			targetProxy = A71FDD9C1A93B0EF008FA7FD /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A71FDD941A93B0EF008FA7FD /* MainMenu.xib */ = {
@@ -507,9 +454,12 @@
 		};
 		A71FDDA61A93B0EF008FA7FD /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D3953912DBA5109FBD2A0CA5 /* Pods-SwipesMac.debug.xcconfig */;
+			baseConfigurationReference = 33C21030267C27494EB518A2 /* Pods-Swipes.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -520,50 +470,17 @@
 		};
 		A71FDDA71A93B0EF008FA7FD /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D5A89C052EFA0132F2D9EDBC /* Pods-SwipesMac.release.xcconfig */;
+			baseConfigurationReference = 3E51A7D33C8F86DDEA5B5C9F /* Pods-Swipes.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Swipes;
-			};
-			name = Release;
-		};
-		A71FDDA91A93B0EF008FA7FD /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwipesMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = SwipesTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwipesMac.app/Contents/MacOS/SwipesMac";
-			};
-			name = Debug;
-		};
-		A71FDDAA1A93B0EF008FA7FD /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = SwipesMacTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = SwipesTests;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SwipesMac.app/Contents/MacOS/SwipesMac";
 			};
 			name = Release;
 		};
@@ -584,15 +501,6 @@
 			buildConfigurations = (
 				A71FDDA61A93B0EF008FA7FD /* Debug */,
 				A71FDDA71A93B0EF008FA7FD /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A71FDDA81A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "SwipesTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A71FDDA91A93B0EF008FA7FD /* Debug */,
-				A71FDDAA1A93B0EF008FA7FD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

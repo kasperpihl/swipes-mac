@@ -11,7 +11,8 @@
 #import "WebStorageManagerPrivate.h"
 #import "WebPreferencesPrivate.h"
 #import "WebViewJavascriptBridge.h"
-
+#import "SPHotKey.h"
+#import "SPHotKeyManager.h"
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate>
 
@@ -45,10 +46,10 @@
         
         NSArray *notifications = [dictData objectForKey:@"notifications"];
         [self handleNotifications:notifications];
-        
         responseCallback(@"success");
     }];
-    NSURL *url = [NSURL URLWithString:@"http://beta.swipesapp.com"];
+    
+    NSURL *url = [NSURL URLWithString:@"http://localhost:9000"];
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [[[self webView] mainFrame] loadRequest:urlRequest];
     [self.webView setUIDelegate:self];
@@ -89,16 +90,25 @@
     [self.window setTitle:@"Swipes"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
     [self.window makeFirstResponder: self.webView];
+    [self registerKeyboardHandler];
+}
+-(void)registerKeyboardHandler{
+    SPHotKeyManager *hotKeyManager = [SPHotKeyManager instance];
+    SPHotKey *hk = [[SPHotKey alloc] initWithTarget:self
+                                    action:@selector(addToSwipes:)
+                                   object:nil
+                                  keyCode:kVK_ANSI_A
+                            modifierFlags:(NSControlKeyMask|NSCommandKeyMask)];
     
+    [hotKeyManager registerHotKey:hk];
+}
+-(IBAction)addToSwipes:(id)sender{
+    [self togglePanel:self];
 }
 -(void)openAddSwipesWithEvent:(NSEvent *)hkEvent object:(AppDelegate*)appDelegate{
     [self.panelController openPanel];
 }
-/*
--(void)registerKeyboardShortcuts{
-    DDHotKeyCenter *c = [DDHotKeyCenter sharedHotKeyCenter];
-    [c registerHotKeyWithKeyCode:kVK_ANSI_S modifierFlags:(NSControlKeyMask | NSAlternateKeyMask) target:self action:@selector(openAddSwipesWithEvent:object:) object:self];
-}*/
+
 -(void)updateWebview{
     [self.bridge callHandler:@"refresh"];
 }
@@ -171,10 +181,13 @@
     
     return NSAlertFirstButtonReturn == response;
 }
-- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
-{
-    return YES;
+
+
+
+-(IBAction)reloadWebview:(id)sender{
+    [self.webView reload:nil];
 }
+
 
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
     return YES;
@@ -213,7 +226,18 @@ void *kContextActivePanel = &kContextActivePanel;
     }
 }
 
-
+- (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag{
+    
+    if( !flag ){
+        [self.window makeKeyAndOrderFront:nil];
+        [self.window makeFirstResponder: self.webView];
+    }
+    return YES;
+}
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication *)application
+{
+    return NO;
+}
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
@@ -223,7 +247,9 @@ void *kContextActivePanel = &kContextActivePanel;
 }
 
 #pragma mark - Actions
-
+/*- (IBAction)performClose:(id)sender{
+    NSLog(@"performing close");
+}*/
 - (IBAction)togglePanel:(id)sender
 {
     self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;

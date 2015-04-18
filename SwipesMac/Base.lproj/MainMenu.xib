@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6751" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7531" systemVersion="14C1514" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6751"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="6751"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7531"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="7531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -33,7 +33,11 @@
                                 </connections>
                             </menuItem>
                             <menuItem isSeparatorItem="YES" id="VOq-y0-SEH"/>
-                            <menuItem title="Preferences…" keyEquivalent="," id="BOF-NM-1cW"/>
+                            <menuItem title="Preferences" tag="1" keyEquivalent="," id="BOF-NM-1cW">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="C9g-bC-ZfN"/>
+                                </connections>
+                            </menuItem>
                             <menuItem isSeparatorItem="YES" id="wFC-TO-SCJ"/>
                             <menuItem title="Services" id="NMo-om-nkz">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -70,6 +74,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
+                            <menuItem title="New Task" tag="7" keyEquivalent="n" id="33e-hl-eWv">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="fzy-1V-is9"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="lCU-W9-5qc"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>
@@ -130,9 +140,9 @@
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Find" id="1b7-l0-nxx">
                                     <items>
-                                        <menuItem title="Find…" tag="1" keyEquivalent="f" id="Xz5-n4-O0W">
+                                        <menuItem title="Find…" tag="5" keyEquivalent="f" id="Xz5-n4-O0W">
                                             <connections>
-                                                <action selector="performFindPanelAction:" target="-1" id="cD7-Qs-BN4"/>
+                                                <action selector="openMenu:" target="Voe-Tx-rLC" id="rKB-ZS-96N"/>
                                             </connections>
                                         </menuItem>
                                         <menuItem title="Find and Replace…" tag="12" keyEquivalent="f" id="YEy-JH-Tfz">
@@ -301,20 +311,44 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
                         <items>
-                            <menuItem title="Add to Swipes" keyEquivalent="a" id="75K-jK-dk8">
-                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                            <menuItem title="Later" tag="2" keyEquivalent="1" id="Rao-Lc-Mon">
                                 <connections>
-                                    <action selector="addToSwipes:" target="Voe-Tx-rLC" id="MDn-dW-uPw"/>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="VI5-qJ-Acd"/>
                                 </connections>
                             </menuItem>
+                            <menuItem title="Now" tag="3" keyEquivalent="2" id="qaG-b4-3MY">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="ABM-IA-8LB"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Done" tag="4" keyEquivalent="3" id="n0R-ws-Rum">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="cKs-vA-P8h"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="9yT-zO-MD9"/>
+                            <menuItem title="Add Task" tag="7" alternate="YES" keyEquivalent="n" id="zxv-gq-rty">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="zZm-4X-yoo"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Search" tag="5" keyEquivalent="f" id="ARH-g8-8gd">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="C5z-c8-dsN"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Workspaces" tag="6" keyEquivalent="d" id="vv6-CC-4f7">
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="AS5-XJ-mEz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="C1u-Up-9lT"/>
                             <menuItem title="Reload Swipes" keyEquivalent="r" id="Rf1-pu-Mv8">
                                 <connections>
                                     <action selector="reloadWebview:" target="Voe-Tx-rLC" id="ia0-D6-5ze"/>
                                 </connections>
                             </menuItem>
-                            <menuItem isSeparatorItem="YES" id="euA-ff-Dqv"/>
                             <menuItem title="Keyboard Shortcuts" keyEquivalent="/" id="967-Os-V0V"/>
-                            <menuItem isSeparatorItem="YES" id="JrP-4g-gsP"/>
                             <menuItem title="Enter Fullscreen" keyEquivalent="f" id="Y4j-6a-2P4">
                                 <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
                                 <connections>
@@ -328,6 +362,13 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                         <items>
+                            <menuItem title="Add to Swipes" keyEquivalent="a" id="75K-jK-dk8">
+                                <modifierMask key="keyEquivalentModifierMask" control="YES" command="YES"/>
+                                <connections>
+                                    <action selector="addToSwipes:" target="Voe-Tx-rLC" id="MDn-dW-uPw"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="SUt-kJ-4u4"/>
                             <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                 <connections>
                                     <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
@@ -353,9 +394,16 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
                         <items>
-                            <menuItem title="Swipes Help" keyEquivalent="?" id="FKE-Sm-Kum">
+                            <menuItem title="FAQ" tag="8" id="0eH-cO-o4Q">
+                                <modifierMask key="keyEquivalentModifierMask"/>
                                 <connections>
-                                    <action selector="showHelp:" target="-1" id="y7X-2Q-9no"/>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="1J9-1b-3ec"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Contact Swipes" tag="9" id="wjG-q6-nAT">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="LAd-qB-y4q"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -363,11 +411,11 @@
                 </menuItem>
             </items>
         </menu>
-        <window title="Swipes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
+        <window title="Swipes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="MainView" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="696" y="430" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
             <value key="minSize" type="size" width="400" height="400"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>

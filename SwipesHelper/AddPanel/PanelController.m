@@ -278,6 +278,7 @@
     [NSApp activateIgnoringOtherApps:NO];
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
+    [panel setLevel:NSStatusWindowLevel];
     [panel makeKeyAndOrderFront:nil];
     
     NSTimeInterval openDuration = OPEN_DURATION;
@@ -297,14 +298,12 @@
                       NSStringFromRect(statusRect), NSStringFromRect(screenRect), NSStringFromRect(panelRect));
         }
     }
-    
     [NSAnimationContext beginGrouping];
     [[NSAnimationContext currentContext] setDuration:openDuration];
     [[panel animator] setFrame:panelRect display:YES];
     [[panel animator] setAlphaValue:1];
     [NSAnimationContext endGrouping];
-    
-    //[panel performSelector:@selector(makeFirstResponder:) withObject:self.textField afterDelay:openDuration];
+    NSLog(@"firing %f : %f",panelRect.origin.x, panelRect.origin.y);
 }
 
 - (void)closePanel

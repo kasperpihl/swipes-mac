@@ -14,7 +14,7 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-@interface AppDelegate () <NSUserNotificationCenterDelegate>
+@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
@@ -53,6 +53,7 @@
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
     [[[self webView] mainFrame] loadRequest:urlRequest];
     [self.webView setUIDelegate:self];
+    //[self.webView setPolicyDelegate:self];
     [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
     
     
@@ -102,6 +103,50 @@
     
     [hotKeyManager registerHotKey:hk];
 }
+
+-(IBAction)openMenu:(id)sender{
+    NSButton *senderButton = (NSButton*)sender;
+    NSString *path = @"list/todo";
+    [self openIfClosed];
+    switch (senderButton.tag) {
+        case 1:
+            path = @"settings";
+            break;
+        case 2:
+            path = @"list/scheduled";
+            break;
+        case 3:
+            path = @"list/todo";
+            break;
+        case 4:
+            path = @"list/completed";
+            break;
+        case 5:
+            path = @"search";
+            break;
+        case 6:
+            path = @"workspaces";
+            break;
+        case 7:
+            path = @"add";
+            break;
+        case 8:
+            [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.swipesapp.com"]];
+            return;
+        case 9:
+            [self.bridge callHandler:@"intercom"];
+            return;
+    }
+    [self.bridge callHandler:@"navigate" data:path];
+    
+}
+-(void)openIfClosed{
+    if(![self.window isKeyWindow]){
+        [self.window makeKeyAndOrderFront:nil];
+        [self.window makeFirstResponder: self.webView];
+    }
+}
+
 -(IBAction)addToSwipes:(id)sender{
     [self togglePanel:self];
 }
@@ -112,6 +157,10 @@
 -(void)updateWebview{
     [self.bridge callHandler:@"refresh"];
 }
+
+
+
+
 -(void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame{
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setAlertStyle:NSWarningAlertStyle];
@@ -119,7 +168,47 @@
     [alert setMessageText:message];
     [alert runModal];
 }
+- (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
+    /*
+     NSWarningAlertStyle = 0,
+     NSInformationalAlertStyle = 1,
+     NSCriticalAlertStyle = 2
+     */
+    NSAlert *alert = [[NSAlert alloc] init];
+    [alert setAlertStyle:NSInformationalAlertStyle];
+    [alert addButtonWithTitle:@"OK"];
+    [alert addButtonWithTitle:@"Cancel"];
+    [alert setMessageText:message];
+    NSModalResponse response = [alert runModal];
+    
+    return NSAlertFirstButtonReturn == response;
+}
+
+- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request
+          frame:(WebFrame *)frame
+decisionListener:(id<WebPolicyDecisionListener>)listener
+{
+    if([request.URL.absoluteString hasPrefix:@"mailto:"] || [request.URL.absoluteString hasPrefix:@"https://twitter.com"])
+    {
+        [[NSWorkspace sharedWorkspace] openURL:request.URL];
+        [listener ignore];
+        /*NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[request.URL.absoluteString]];
+        
+        sharingServicePicker.delegate = self;
+        
+        [sharingServicePicker showRelativeToRect:[self.webView bounds]
+                                          ofView:self.webView
+                                   preferredEdge:(NSMinYEdge|NSMaxYEdge)];*/
+        return;
+    }
+}
+
+
+
+
 -(void)handleNotifications:(NSArray*)notifications{
+    NSLog(@"%@", [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]);
     for( NSUserNotification *notification in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]){
         [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notification];
     }
@@ -166,26 +255,12 @@
     notification.userInfo = userInfo;
     [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
 }
-- (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
-    /*
-     NSWarningAlertStyle = 0,
-     NSInformationalAlertStyle = 1,
-     NSCriticalAlertStyle = 2
-     */
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setAlertStyle:NSInformationalAlertStyle];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
-    [alert setMessageText:message];
-    NSModalResponse response = [alert runModal];
-    
-    return NSAlertFirstButtonReturn == response;
-}
 
 
 
 -(IBAction)reloadWebview:(id)sender{
     [self.webView reload:nil];
+    [self openIfClosed];
 }
 
 
@@ -229,8 +304,7 @@ void *kContextActivePanel = &kContextActivePanel;
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag{
     
     if( !flag ){
-        [self.window makeKeyAndOrderFront:nil];
-        [self.window makeFirstResponder: self.webView];
+        [self openIfClosed];
     }
     return YES;
 }

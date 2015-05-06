@@ -303,7 +303,6 @@
     [[panel animator] setFrame:panelRect display:YES];
     [[panel animator] setAlphaValue:1];
     [NSAnimationContext endGrouping];
-    NSLog(@"firing %f : %f",panelRect.origin.x, panelRect.origin.y);
 }
 
 - (void)closePanel

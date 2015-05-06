@@ -14,6 +14,9 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
+#define kWebAddress @"http://web.swipesapp.com"
+#define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
+
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
@@ -49,11 +52,11 @@
         responseCallback(@"success");
     }];
     
-    NSURL *url = [NSURL URLWithString:@"http://localhost:9000"];
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:url];
-    [[[self webView] mainFrame] loadRequest:urlRequest];
+    
+    [[[self webView] mainFrame] loadRequest:kWebUrlRequest];
+    
     [self.webView setUIDelegate:self];
-    //[self.webView setPolicyDelegate:self];
+    [self.webView setPolicyDelegate:self];
     [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
     
     
@@ -136,6 +139,9 @@
         case 9:
             [self.bridge callHandler:@"intercom"];
             return;
+        case 10:
+            [self.bridge callHandler:@"trigger" data:@"show-keyboard-shortcuts"];
+            return;
     }
     [self.bridge callHandler:@"navigate" data:path];
     
@@ -183,32 +189,59 @@
     
     return NSAlertFirstButtonReturn == response;
 }
-
-- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
-        request:(NSURLRequest *)request
-          frame:(WebFrame *)frame
-decisionListener:(id<WebPolicyDecisionListener>)listener
+- (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
-    if([request.URL.absoluteString hasPrefix:@"mailto:"] || [request.URL.absoluteString hasPrefix:@"https://twitter.com"])
-    {
-        [[NSWorkspace sharedWorkspace] openURL:request.URL];
-        [listener ignore];
-        /*NSSharingServicePicker *sharingServicePicker = [[NSSharingServicePicker alloc] initWithItems:@[request.URL.absoluteString]];
-        
-        sharingServicePicker.delegate = self;
-        
-        [sharingServicePicker showRelativeToRect:[self.webView bounds]
-                                          ofView:self.webView
-                                   preferredEdge:(NSMinYEdge|NSMaxYEdge)];*/
-        return;
+    // HACK: This is all a hack to get around a bug/misfeature in Tiger's WebKit
+    // (should be fixed in Leopard). On Javascript window.open, Tiger sends a null
+    // request here, then sends a loadRequest: to the new WebView, which will
+    // include a decidePolicyForNavigation (which is where we'll open our
+    // external window). In Leopard, we should be getting the request here from
+    // the start, and we should just be able to create a new window.
+    WebView *newWebView = [[WebView alloc] init];
+    [newWebView setUIDelegate:self];
+    [newWebView setPolicyDelegate:self];
+    return newWebView;
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
+    BOOL use = YES;
+    if( [sender isEqual:self.webView] ) {
+        if([request.URL.absoluteString hasPrefix:@"mailto:"]){
+            use = NO;
+        }
     }
+    else{
+        use = NO;
+        if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
+            use = YES;
+//[self.window makeKeyAndOrderFront:sender];
+        }
+        if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/login.php"]){
+            use = YES;
+            //[[self.webView mainFrame] loadRequest:request];
+        }
+        
+    }
+    
+    
+    if(use){
+        [listener use];
+    }
+    else {
+        [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
+        [listener ignore];
+    }
+}
+
+- (void)webView:(WebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener {
+    [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
+    [listener ignore];
 }
 
 
 
 
 -(void)handleNotifications:(NSArray*)notifications{
-    NSLog(@"%@", [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]);
     for( NSUserNotification *notification in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]){
         [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notification];
     }
@@ -259,7 +292,7 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
 
 
 -(IBAction)reloadWebview:(id)sender{
-    [self.webView reload:nil];
+    [[self.webView mainFrame] loadRequest:kWebUrlRequest];
     [self openIfClosed];
 }
 

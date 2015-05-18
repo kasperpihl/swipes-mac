@@ -14,7 +14,7 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-#define kWebAddress @"http://web.swipesapp.com"
+#define kWebAddress @"http://beta.swipesapp.com" // @"http://facebook.com" //
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate>
@@ -22,6 +22,7 @@
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
 @property WebViewJavascriptBridge *bridge;
+@property (assign) BOOL shouldStartFBLogin;
 @end
 
 @implementation AppDelegate
@@ -30,7 +31,12 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView handler:^(id data, WVJBResponseCallback responseCallback) {
+    
+    [WebViewJavascriptBridge enableLogging];
+    [self.webView setUIDelegate:self];
+    [self.webView setResourceLoadDelegate:self];
+    [self.webView setPolicyDelegate:self];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         if([data isKindOfClass:[NSDictionary class]]){
             NSString *sessionToken = [data objectForKey:@"sessionToken"];
             if(sessionToken){
@@ -52,13 +58,11 @@
         responseCallback(@"success");
     }];
     
-    
     [[[self webView] mainFrame] loadRequest:kWebUrlRequest];
     
-    [self.webView setUIDelegate:self];
-    [self.webView setPolicyDelegate:self];
-    [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
     
+    
+    [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
     
     
     NSString* dbPath = [WebStorageManager _storageDirectoryPath];
@@ -95,6 +99,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
     [self.window makeFirstResponder: self.webView];
     [self registerKeyboardHandler];
+}
+-(void)loadPage{
+    [[[self webView] mainFrame] loadRequest:kWebUrlRequest];
 }
 -(void)registerKeyboardHandler{
     SPHotKeyManager *hotKeyManager = [SPHotKeyManager instance];
@@ -165,7 +172,9 @@
 }
 
 
-
+-(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame{
+    NSLog(@"did finish");
+}
 
 -(void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame{
     NSAlert *alert = [[NSAlert alloc] init];
@@ -174,6 +183,7 @@
     [alert setMessageText:message];
     [alert runModal];
 }
+
 - (BOOL)webView:(WebView *)sender runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame {
     /*
      NSWarningAlertStyle = 0,
@@ -205,6 +215,16 @@
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
     BOOL use = YES;
+    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/v2.0/dialog/oauth?redirect_uri"] && [request.URL.absoluteString containsString:@"signed_request"]){
+        use = YES;
+        self.shouldStartFBLogin = YES;
+        [self loadPage];
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert addButtonWithTitle:@"OK"];
+        [alert setMessageText:@"Please try login again. It should work."];
+        [alert runModal];
+    }
     if( [sender isEqual:self.webView] ) {
         if([request.URL.absoluteString hasPrefix:@"mailto:"]){
             use = NO;
@@ -214,12 +234,14 @@
         use = NO;
         if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
             use = YES;
+            NSLog(@"%@",self.webView);
 //[self.window makeKeyAndOrderFront:sender];
         }
         if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/login.php"]){
             use = YES;
-            //[[self.webView mainFrame] loadRequest:request];
+            [[self.webView mainFrame] loadRequest:request];
         }
+        
         
     }
     
@@ -237,6 +259,20 @@
     [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
     [listener ignore];
 }
+/*- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
+        request:(NSURLRequest *)request
+          frame:(WebFrame *)frame
+decisionListener:(id<WebPolicyDecisionListener>)listener
+{
+    NSLog(@"%@",request.URL.absoluteString);
+    if([request.URL.absoluteString hasPrefix:@"mailto:"] || [request.URL.absoluteString hasPrefix:@"https://twitter.com"])
+    {
+        [[NSWorkspace sharedWorkspace] openURL:request.URL];
+        [listener ignore];
+        return;
+    }
+}
+ */
 
 
 
@@ -292,7 +328,7 @@
 
 
 -(IBAction)reloadWebview:(id)sender{
-    [[self.webView mainFrame] loadRequest:kWebUrlRequest];
+    [self loadPage];
     [self openIfClosed];
 }
 

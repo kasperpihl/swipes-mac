@@ -139,6 +139,7 @@
         /* Performing request */
         NSHTTPURLResponse *response;
         NSData *resData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh-webview" object:self];
     }
     [self.indicator removeFromSuperview];

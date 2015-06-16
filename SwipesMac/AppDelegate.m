@@ -11,16 +11,18 @@
 #import "WebStorageManagerPrivate.h"
 #import "WebPreferencesPrivate.h"
 #import "WebViewJavascriptBridge.h"
+#import "AuthWindowController.h"
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-#define kWebAddress @"http://beta.swipesapp.com" // @"http://facebook.com" //
+#define kWebAddress @"http://beta.swipesapp.com" //@"http://facebook.com" //
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
-@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate>
+@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
+@property (nonatomic, strong) AuthWindowController *authPopup;
 @property WebViewJavascriptBridge *bridge;
 @property (assign) BOOL shouldStartFBLogin;
 @end
@@ -31,34 +33,15 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
+    [self.webView setGroupName:@"SwipesWeb"];
     
-    [WebViewJavascriptBridge enableLogging];
+    
+    //[WebViewJavascriptBridge enableLogging];
     [self.webView setUIDelegate:self];
     [self.webView setResourceLoadDelegate:self];
     [self.webView setPolicyDelegate:self];
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        if([data isKindOfClass:[NSDictionary class]]){
-            NSString *sessionToken = [data objectForKey:@"sessionToken"];
-            if(sessionToken){
-                [[NSUserDefaults standardUserDefaults] setObject:sessionToken forKey:@"sessionToken"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-        }
-        responseCallback(@"Right back atcha");
-    }];
-    [self.bridge callHandler:@"register-notifications"];
-    [self.bridge registerHandler:@"update-notification" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSDictionary *dictData = data;
-        NSNumber *number = [dictData objectForKey:@"number"];
-        NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
-        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
-        
-        NSArray *notifications = [dictData objectForKey:@"notifications"];
-        [self handleNotifications:notifications];
-        responseCallback(@"success");
-    }];
-    
-    [[[self webView] mainFrame] loadRequest:kWebUrlRequest];
+    [self registerBridge];
+    [self loadPage];
     
     
     
@@ -84,13 +67,12 @@
         [prefs setJavaScriptEnabled:YES];
         [prefs setJavaScriptCanOpenWindowsAutomatically:YES];
         [prefs setDatabasesEnabled:YES];
-        [prefs setDeveloperExtrasEnabled:YES];
+        //[prefs setDeveloperExtrasEnabled:YES];
 #ifdef DEBUG
         
 #endif
         [prefs _setLocalStorageDatabasePath:dbPath];
         [prefs setLocalStorageEnabled:YES];
-        
         [self.webView setPreferences:prefs];
     }
     self.menubarController = [[MenubarController alloc] init];
@@ -99,6 +81,29 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
     [self.window makeFirstResponder: self.webView];
     [self registerKeyboardHandler];
+}
+-(void)registerBridge{
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
+        if([data isKindOfClass:[NSDictionary class]]){
+            NSString *sessionToken = [data objectForKey:@"sessionToken"];
+            if(sessionToken){
+                [[NSUserDefaults standardUserDefaults] setObject:sessionToken forKey:@"sessionToken"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            }
+        }
+        [self.bridge callHandler:@"register-notifications"];
+        responseCallback(@"Right back atcha");
+    }];
+    [self.bridge registerHandler:@"update-notification" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dictData = data;
+        NSNumber *number = [dictData objectForKey:@"number"];
+        NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
+        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
+        
+        NSArray *notifications = [dictData objectForKey:@"notifications"];
+        [self handleNotifications:notifications];
+        responseCallback(@"success");
+    }];
 }
 -(void)loadPage{
     [[[self webView] mainFrame] loadRequest:kWebUrlRequest];
@@ -173,10 +178,12 @@
 
 
 -(void)webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame{
-    NSLog(@"did finish");
+
 }
 
 -(void)webView:(WebView *)sender runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WebFrame *)frame{
+    if([message isEqualToString:@"something went wrong. Please try again."])
+        return;
     NSAlert *alert = [[NSAlert alloc] init];
     [alert setAlertStyle:NSWarningAlertStyle];
     [alert addButtonWithTitle:@"OK"];
@@ -207,6 +214,7 @@
     // include a decidePolicyForNavigation (which is where we'll open our
     // external window). In Leopard, we should be getting the request here from
     // the start, and we should just be able to create a new window.
+    
     WebView *newWebView = [[WebView alloc] init];
     [newWebView setUIDelegate:self];
     [newWebView setPolicyDelegate:self];
@@ -215,47 +223,61 @@
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
     BOOL use = YES;
-    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/v2.0/dialog/oauth?redirect_uri"] && [request.URL.absoluteString containsString:@"signed_request"]){
-        use = YES;
-        self.shouldStartFBLogin = YES;
-        [self loadPage];
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        [alert addButtonWithTitle:@"OK"];
-        [alert setMessageText:@"Please try login again. It should work."];
-        [alert runModal];
+    BOOL open = YES;
+    NSLog(@"%@",request.URL.absoluteString);
+    // Unset notifications and badge counter
+    if([request.URL.absoluteString isEqualToString:@"http://web.swipesapp.com/login/"]){
+        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
+        [self handleNotifications:@[]];
     }
     if( [sender isEqual:self.webView] ) {
+        
         if([request.URL.absoluteString hasPrefix:@"mailto:"]){
             use = NO;
         }
     }
-    else{
-        use = NO;
-        if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
-            use = YES;
-            NSLog(@"%@",self.webView);
-//[self.window makeKeyAndOrderFront:sender];
-        }
-        if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/login.php"]){
-            use = YES;
-            [[self.webView mainFrame] loadRequest:request];
-        }
-        
-        
+    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
+        use = YES;
     }
+    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/login.php"]){
+        use = YES;
+        NSLog(@"running login popup");
+        
+        self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
+        self.authPopup.delegate = self;
+        [self.authPopup showWindow:self.authPopup];
+        [self.authPopup loadAuthWithURLRequest:request];
+        [self.authPopup.window makeKeyWindow];
+    }
+    /*else{
+        use = NO;
+     
+     
+        
+        
+    }*/
     
     
     if(use){
         [listener use];
     }
     else {
-        [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
+        if(open)
+            [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
         [listener ignore];
     }
 }
 
+-(void)authController:(AuthWindowController *)authController didAuthWithURLRequest:(NSURLRequest *)urlRequest{
+    NSString *javascriptString = [NSString stringWithFormat:@"window.open(\"%@\")",urlRequest.URL.absoluteString];
+    
+    NSLog(@"%@",[self.webView stringByEvaluatingJavaScriptFromString:javascriptString]);
+    //[[self.webView mainFrame] loadRequest:urlRequest];
+    [authController close];
+}
+
 - (void)webView:(WebView *)sender decidePolicyForNewWindowAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request newFrameName:(NSString *)frameName decisionListener:(id<WebPolicyDecisionListener>)listener {
+    NSLog(@"new frame");
     [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
     [listener ignore];
 }

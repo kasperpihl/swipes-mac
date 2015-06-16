@@ -12,6 +12,8 @@
 		A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD921A93B0EF008FA7FD /* Images.xcassets */; };
 		A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A71FDD941A93B0EF008FA7FD /* MainMenu.xib */; };
 		A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */; };
+		A734FCD11B2FECDE00C78834 /* AuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */; };
+		A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */; };
 		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
 		A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E11A95020300BF5D22 /* BackgroundView.m */; };
 		A798D6F01A95020300BF5D22 /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E31A95020300BF5D22 /* MenubarController.m */; };
@@ -62,6 +64,9 @@
 		A71FDDA01A93B0EF008FA7FD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A71FDDA11A93B0EF008FA7FD /* SwipesMacTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SwipesMacTests.m; sourceTree = "<group>"; };
 		A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-notification.aiff"; sourceTree = "<group>"; };
+		A734FCCE1B2FECDE00C78834 /* AuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthWindowController.h; path = AuthPopup/AuthWindowController.h; sourceTree = "<group>"; };
+		A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthWindowController.m; path = AuthPopup/AuthWindowController.m; sourceTree = "<group>"; };
+		A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthWindowController.xib; path = AuthPopup/AuthWindowController.xib; sourceTree = "<group>"; };
 		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
 		A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipesHelper.xcodeproj; path = SwipesHelper/SwipesHelper.xcodeproj; sourceTree = "<group>"; };
 		A798D6E01A95020300BF5D22 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
@@ -145,6 +150,7 @@
 		A71FDD8A1A93B0EF008FA7FD /* SwipesMac */ = {
 			isa = PBXGroup;
 			children = (
+				A734FCC91B2FEB9000C78834 /* AuthPopup */,
 				A7CF377F1AB05D920030C7B4 /* CustomWebView.h */,
 				A7CF37801AB05D920030C7B4 /* CustomWebView.m */,
 				A798D6DF1A95020300BF5D22 /* AddPanel */,
@@ -183,6 +189,16 @@
 				A71FDDA01A93B0EF008FA7FD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		A734FCC91B2FEB9000C78834 /* AuthPopup */ = {
+			isa = PBXGroup;
+			children = (
+				A734FCCE1B2FECDE00C78834 /* AuthWindowController.h */,
+				A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */,
+				A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */,
+			);
+			name = AuthPopup;
 			sourceTree = "<group>";
 		};
 		A798D6BD1A95004000BF5D22 /* Products */ = {
@@ -306,6 +322,7 @@
 				A798D6F41A95020300BF5D22 /* Status.png in Resources */,
 				A798D6F51A95020300BF5D22 /* Status@2x.png in Resources */,
 				A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */,
+				A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */,
 				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
 				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
 			);
@@ -357,6 +374,7 @@
 				A798D6F81A95020300BF5D22 /* StatusItemView.m in Sources */,
 				A71FDD911A93B0EF008FA7FD /* main.m in Sources */,
 				A71FDD8F1A93B0EF008FA7FD /* AppDelegate.m in Sources */,
+				A734FCD11B2FECDE00C78834 /* AuthWindowController.m in Sources */,
 				A7CF37811AB05D920030C7B4 /* CustomWebView.m in Sources */,
 				A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */,
 			);

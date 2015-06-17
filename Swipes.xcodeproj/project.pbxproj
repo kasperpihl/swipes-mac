@@ -240,6 +240,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A71FDDA51A93B0EF008FA7FD /* Build configuration list for PBXNativeTarget "Swipes" */;
 			buildPhases = (
+				A757846A1B31C22100FCE3DB /* Increment build number */,
 				C3DF204CAD78F079D89D0B5C /* Check Pods Manifest.lock */,
 				A71FDD841A93B0EF008FA7FD /* Sources */,
 				A71FDD851A93B0EF008FA7FD /* Frameworks */,
@@ -332,6 +333,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A757846A1B31C22100FCE3DB /* Increment build number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Increment build number";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "buildNumber=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\")\nbuildNumber=$(($buildNumber + 1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $buildNumber\" \"${PROJECT_DIR}/${INFOPLIST_FILE}\"";
+		};
 		C3DF204CAD78F079D89D0B5C /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

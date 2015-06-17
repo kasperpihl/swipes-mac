@@ -15,7 +15,7 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-#define kWebAddress @"http://localhost:9000" //@"http://beta.swipesapp.com" //@"http://facebook.com" //
+#define kWebAddress @"http://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>

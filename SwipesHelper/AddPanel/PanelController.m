@@ -214,11 +214,12 @@
     if (NSMaxX(panelRect) > (NSMaxX(screenRect) - ARROW_HEIGHT))
         panelRect.origin.x -= NSMaxX(panelRect) - (NSMaxX(screenRect) - ARROW_HEIGHT);
     
-    [NSApp activateIgnoringOtherApps:NO];
+    [NSApp activateIgnoringOtherApps:YES];
     [panel setAlphaValue:0];
     [panel setFrame:statusRect display:YES];
-    [panel setLevel:NSStatusWindowLevel];
-    [panel makeKeyAndOrderFront:nil];
+    //[panel setLevel:NSStatusWindowLevel];
+    [panel makeKeyAndOrderFront:panel];
+    [panel setOrderedIndex:0];
     
     NSTimeInterval openDuration = OPEN_DURATION;
     

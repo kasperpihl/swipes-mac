@@ -161,9 +161,11 @@
     
 }
 -(void)openIfClosed{
+    [self.window makeKeyAndOrderFront:nil];
+    [self.window makeFirstResponder: self.webView];
+    [NSApp activateIgnoringOtherApps:YES];
     if(![self.window isKeyWindow]){
-        [self.window makeKeyAndOrderFront:nil];
-        [self.window makeFirstResponder: self.webView];
+        
     }
 }
 
@@ -232,7 +234,7 @@
     BOOL use = YES;
     BOOL open = YES;
     // Unset notifications and badge counter
-    NSLog(@"%@",request.URL.absoluteString);
+    
     if([request.URL.absoluteString isEqualToString:[kWebAddress stringByAppendingString:@"/login/"]]){
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionToken"];
@@ -244,6 +246,10 @@
         if([request.URL.absoluteString hasPrefix:@"mailto:"]){
             use = NO;
         }
+    }
+    else{
+        use = NO;
+        NSLog(@"%@",request.URL.absoluteString);
     }
     if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
         use = YES;
@@ -258,13 +264,6 @@
         [self.authPopup loadAuthWithURLRequest:request];
         [self.authPopup.window makeKeyWindow];
     }
-    /*else{
-        use = NO;
-     
-     
-        
-        
-    }*/
     
     
     if(use){
@@ -427,9 +426,7 @@ void *kContextActivePanel = &kContextActivePanel;
 - (IBAction)togglePanel:(id)sender
 {
     NSString *sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
-    NSLog(@"token: %@",sessionToken);
     if(sessionToken && sessionToken.length > 0){
-        
         self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
         self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
     }

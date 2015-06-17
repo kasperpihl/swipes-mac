@@ -15,7 +15,7 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-#define kWebAddress @"http://beta.swipesapp.com" //@"http://facebook.com" //
+#define kWebAddress @"http://localhost:9000" //@"http://beta.swipesapp.com" //@"http://facebook.com" //
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>
@@ -79,6 +79,8 @@
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTask:) name:@"add-task" object:nil];
+    
     [self.window makeFirstResponder: self.webView];
     [self registerKeyboardHandler];
 }
@@ -86,6 +88,7 @@
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
         if([data isKindOfClass:[NSDictionary class]]){
             NSString *sessionToken = [data objectForKey:@"sessionToken"];
+            NSLog(@"session %@",sessionToken);
             if(sessionToken){
                 [[NSUserDefaults standardUserDefaults] setObject:sessionToken forKey:@"sessionToken"];
                 [[NSUserDefaults standardUserDefaults] synchronize];
@@ -99,7 +102,6 @@
         NSNumber *number = [dictData objectForKey:@"number"];
         NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
-        
         NSArray *notifications = [dictData objectForKey:@"notifications"];
         [self handleNotifications:notifications];
         responseCallback(@"success");
@@ -172,6 +174,11 @@
     [self.panelController openPanel];
 }
 
+-(void)addTask:(NSNotification*)notification{
+    [self.bridge callHandler:@"add-task" data:notification.userInfo responseCallback:^(id responseData) {
+        NSLog(@"response %@",responseData);
+    }];
+}
 -(void)updateWebview{
     [self.bridge callHandler:@"refresh"];
 }
@@ -224,10 +231,12 @@
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
     BOOL use = YES;
     BOOL open = YES;
-    NSLog(@"%@",request.URL.absoluteString);
     // Unset notifications and badge counter
-    if([request.URL.absoluteString isEqualToString:@"http://web.swipesapp.com/login/"]){
+    NSLog(@"%@",request.URL.absoluteString);
+    if([request.URL.absoluteString isEqualToString:[kWebAddress stringByAppendingString:@"/login/"]]){
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionToken"];
+        [[NSUserDefaults standardUserDefaults] synchronize];
         [self handleNotifications:@[]];
     }
     if( [sender isEqual:self.webView] ) {
@@ -417,8 +426,16 @@ void *kContextActivePanel = &kContextActivePanel;
 }*/
 - (IBAction)togglePanel:(id)sender
 {
-    self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
-    self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
+    NSString *sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
+    NSLog(@"token: %@",sessionToken);
+    if(sessionToken && sessionToken.length > 0){
+        
+        self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
+        self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
+    }
+    else{
+        [self openIfClosed];
+    }
 }
 
 #pragma mark - Public accessors

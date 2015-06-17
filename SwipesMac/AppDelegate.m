@@ -48,8 +48,8 @@
     [[[self.webView mainFrame] frameView] setAllowsScrolling:YES];
     
     
-    NSString* dbPath = [WebStorageManager _storageDirectoryPath];
-    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *dbPath = [paths objectAtIndex:0];
     WebPreferences* prefs = [self.webView preferences];
     NSString* localDBPath = [prefs _localStorageDatabasePath];
     

@@ -31,23 +31,6 @@
 		D9508CB5A678B4D9B6132AFE /* libPods-Swipes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 57DA7785E7D1C0DE8B3A6ADA /* libPods-Swipes.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A798D6C11A95004100BF5D22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A798D6991A95004000BF5D22;
-			remoteInfo = SwipesHelper;
-		};
-		A798D6C31A95004100BF5D22 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A798D6AC1A95004000BF5D22;
-			remoteInfo = SwipesHelperTests;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
 		33C21030267C27494EB518A2 /* Pods-Swipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Swipes.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Swipes/Pods-Swipes.debug.xcconfig"; sourceTree = "<group>"; };
 		3C41917AFA306E1CFDF702E7 /* libPods-SwipesMac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SwipesMac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,8 +50,8 @@
 		A734FCCE1B2FECDE00C78834 /* AuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthWindowController.h; path = AuthPopup/AuthWindowController.h; sourceTree = "<group>"; };
 		A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthWindowController.m; path = AuthPopup/AuthWindowController.m; sourceTree = "<group>"; };
 		A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthWindowController.xib; path = AuthPopup/AuthWindowController.xib; sourceTree = "<group>"; };
+		A757846C1B31C5D100FCE3DB /* Swipes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Swipes.entitlements; sourceTree = "<group>"; };
 		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
-		A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipesHelper.xcodeproj; path = SwipesHelper/SwipesHelper.xcodeproj; sourceTree = "<group>"; };
 		A798D6E01A95020300BF5D22 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
 		A798D6E11A95020300BF5D22 /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
 		A798D6E21A95020300BF5D22 /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenubarController.h; sourceTree = "<group>"; };
@@ -130,7 +113,7 @@
 		A71FDD7F1A93B0EF008FA7FD = {
 			isa = PBXGroup;
 			children = (
-				A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */,
+				A757846C1B31C5D100FCE3DB /* Swipes.entitlements */,
 				A71FDD8A1A93B0EF008FA7FD /* SwipesMac */,
 				A71FDD9E1A93B0EF008FA7FD /* SwipesMacTests */,
 				A71FDD891A93B0EF008FA7FD /* Products */,
@@ -201,15 +184,6 @@
 			name = AuthPopup;
 			sourceTree = "<group>";
 		};
-		A798D6BD1A95004000BF5D22 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A798D6C21A95004100BF5D22 /* SwipesHelper.app */,
-				A798D6C41A95004100BF5D22 /* SwipesHelperTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		A798D6DF1A95020300BF5D22 /* AddPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -268,6 +242,11 @@
 					A71FDD871A93B0EF008FA7FD = {
 						CreatedOnToolsVersion = 6.1.1;
 						DevelopmentTeam = 85LTPM52WY;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -282,35 +261,12 @@
 			mainGroup = A71FDD7F1A93B0EF008FA7FD;
 			productRefGroup = A71FDD891A93B0EF008FA7FD /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A798D6BD1A95004000BF5D22 /* Products */;
-					ProjectRef = A798D6BC1A95004000BF5D22 /* SwipesHelper.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				A71FDD871A93B0EF008FA7FD /* Swipes */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		A798D6C21A95004100BF5D22 /* SwipesHelper.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = SwipesHelper.app;
-			remoteRef = A798D6C11A95004100BF5D22 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A798D6C41A95004100BF5D22 /* SwipesHelperTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SwipesHelperTests.xctest;
-			remoteRef = A798D6C31A95004100BF5D22 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A71FDD861A93B0EF008FA7FD /* Resources */ = {
@@ -427,7 +383,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Swipes Incorporated (85LTPM52WY)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -447,6 +403,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "c4dc9b24-1291-4594-b3cf-99a3164c75e5";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -468,7 +425,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Swipes Incorporated (85LTPM52WY)";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -482,6 +439,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE = "c4dc9b24-1291-4594-b3cf-99a3164c75e5";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -494,11 +452,14 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Swipes;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -510,11 +471,14 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
+				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Swipes Incorporated (85LTPM52WY)";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Swipes;
+				PROVISIONING_PROFILE = "c4dc9b24-1291-4594-b3cf-99a3164c75e5";
 			};
 			name = Release;
 		};

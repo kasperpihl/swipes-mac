@@ -15,6 +15,8 @@
 		A734FCD11B2FECDE00C78834 /* AuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */; };
 		A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */; };
 		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
+		A7908C4F1B5D5E9300E0F300 /* StatusTemplate.png in Resources */ = {isa = PBXBuildFile; fileRef = A7908C4D1B5D5E9300E0F300 /* StatusTemplate.png */; };
+		A7908C501B5D5E9300E0F300 /* StatusTemplate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A7908C4E1B5D5E9300E0F300 /* StatusTemplate@2x.png */; };
 		A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E11A95020300BF5D22 /* BackgroundView.m */; };
 		A798D6F01A95020300BF5D22 /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E31A95020300BF5D22 /* MenubarController.m */; };
 		A798D6F11A95020300BF5D22 /* Panel.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E51A95020300BF5D22 /* Panel.m */; };
@@ -52,6 +54,8 @@
 		A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthWindowController.xib; path = AuthPopup/AuthWindowController.xib; sourceTree = "<group>"; };
 		A757846C1B31C5D100FCE3DB /* Swipes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Swipes.entitlements; sourceTree = "<group>"; };
 		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
+		A7908C4D1B5D5E9300E0F300 /* StatusTemplate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = StatusTemplate.png; sourceTree = "<group>"; };
+		A7908C4E1B5D5E9300E0F300 /* StatusTemplate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "StatusTemplate@2x.png"; sourceTree = "<group>"; };
 		A798D6E01A95020300BF5D22 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
 		A798D6E11A95020300BF5D22 /* BackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackgroundView.m; sourceTree = "<group>"; };
 		A798D6E21A95020300BF5D22 /* MenubarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenubarController.h; sourceTree = "<group>"; };
@@ -202,6 +206,8 @@
 				A798D6EC1A95020300BF5D22 /* StatusHighlighted@2x.png */,
 				A798D6ED1A95020300BF5D22 /* StatusItemView.h */,
 				A798D6EE1A95020300BF5D22 /* StatusItemView.m */,
+				A7908C4D1B5D5E9300E0F300 /* StatusTemplate.png */,
+				A7908C4E1B5D5E9300E0F300 /* StatusTemplate@2x.png */,
 			);
 			name = AddPanel;
 			path = SwipesHelper/AddPanel;
@@ -279,7 +285,9 @@
 				A798D6F71A95020300BF5D22 /* StatusHighlighted@2x.png in Resources */,
 				A798D6F41A95020300BF5D22 /* Status.png in Resources */,
 				A798D6F51A95020300BF5D22 /* Status@2x.png in Resources */,
+				A7908C501B5D5E9300E0F300 /* StatusTemplate@2x.png in Resources */,
 				A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */,
+				A7908C4F1B5D5E9300E0F300 /* StatusTemplate.png in Resources */,
 				A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */,
 				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
 				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
@@ -453,7 +461,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -472,7 +480,7 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
-				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Swipes Incorporated (85LTPM52WY)";
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

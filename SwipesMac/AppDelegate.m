@@ -15,7 +15,11 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
+#ifdef DEBUG
 #define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+#else
+#define kWebAddress @"http://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+#endif
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>
@@ -116,7 +120,7 @@
                                     action:@selector(addToSwipes:)
                                    object:nil
                                   keyCode:kVK_ANSI_A
-                            modifierFlags:(NSControlKeyMask|NSCommandKeyMask)];
+                            modifierFlags:(NSShiftKeyMask|NSCommandKeyMask)];
     
     [hotKeyManager registerHotKey:hk];
 }

@@ -15,11 +15,11 @@
 #import "SPHotKey.h"
 #import "SPHotKeyManager.h"
 
-#ifdef DEBUG
-#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
-#else
+//#ifdef DEBUG
+//#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+//#else
 #define kWebAddress @"http://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
-#endif
+//#endif
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>
@@ -309,7 +309,19 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
  */
 
 
-
+- (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems
+{
+    //NSLog(@"element: %@, defaults: %@", element[WebElementDOMNodeKey], defaultMenuItems);
+    DOMHTMLElement* el = element[WebElementDOMNodeKey];
+    if (el) {
+        NSString* name = [el.nodeName lowercaseString];
+        if ([name isEqualToString:@"input"] || [name isEqualToString:@"#text"] || [name isEqualToString:@"textarea"]) {
+            return defaultMenuItems;
+        }
+    }
+    //NSLog(@"element: %@", el.nodeName);
+    return nil;
+}
 
 -(void)handleNotifications:(NSArray*)notifications{
     for( NSUserNotification *notification in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]){

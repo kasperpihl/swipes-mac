@@ -30,16 +30,26 @@
 
 - (void)drawRect:(NSRect)dirtyRect
 {
-	[self.statusItem drawStatusBarBackgroundInRect:dirtyRect withHighlight:self.isHighlighted];
+    // Set up dark mode for icon
+    if ([[[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"] isEqual:@"Dark"]) {
+        self.image = [NSImage imageNamed:@"StatusHighlighted"];
+    }
+    else {
+        if (self.isHighlighted)
+            self.image = [NSImage imageNamed:@"StatusHighlighted"];
+        else
+            self.image = [NSImage imageNamed:@"Status"];
+    }
+    [self.statusItem drawStatusBarBackgroundInRect:dirtyRect withHighlight:self.isHighlighted];
     
-    NSImage *icon = self.isHighlighted ? self.alternateImage : self.image;
+    NSImage *icon = self.image;
     NSSize iconSize = [icon size];
     NSRect bounds = self.bounds;
     CGFloat iconX = roundf((NSWidth(bounds) - iconSize.width) / 2);
     CGFloat iconY = roundf((NSHeight(bounds) - iconSize.height) / 2);
     NSPoint iconPoint = NSMakePoint(iconX, iconY);
-
-	[icon drawAtPoint:iconPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    
+    [icon drawAtPoint:iconPoint fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
 #pragma mark -

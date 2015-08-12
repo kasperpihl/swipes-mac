@@ -175,7 +175,7 @@
 
 - (NSRect)statusRectForWindow:(NSWindow *)window
 {
-    NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
+    NSRect screenRect = window.screen.frame; //[[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = NSZeroRect;
     
     StatusItemView *statusItemView = nil;
@@ -202,7 +202,7 @@
 {
     NSWindow *panel = [self window];
     
-    NSRect screenRect = [[[NSScreen screens] objectAtIndex:0] frame];
+    NSRect screenRect = [NSScreen mainScreen].frame; //[[[NSScreen screens] objectAtIndex:0] frame];
     NSRect statusRect = [self statusRectForWindow:panel];
 
     NSRect panelRect = [panel frame];

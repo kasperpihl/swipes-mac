@@ -18,7 +18,7 @@
 //#ifdef DEBUG
 //#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
 //#else
-#define kWebAddress @"http://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+#define kWebAddress @"https://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
 //#endif
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
@@ -439,10 +439,11 @@ void *kContextActivePanel = &kContextActivePanel;
 /*- (IBAction)performClose:(id)sender{
     NSLog(@"performing close");
 }*/
-- (IBAction)togglePanel:(id)sender
+- (void)togglePanel:(id)sender
 {
     NSString *sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
     if(sessionToken && sessionToken.length > 0){
+        [self.window close];
         self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
         self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
     }

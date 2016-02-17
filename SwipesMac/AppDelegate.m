@@ -18,9 +18,9 @@
 //#ifdef DEBUG
 //#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000"
 //#else
-#define kWebAddress @"http://team.swipesapp.com" //@"http://localhost:9000" //
+#define kWebAddress @"http://dev.swipesapp.com" //@"http://localhost:9000" //
 //#endif
-#define kLoginPath @"/loginslack/"
+#define kLoginPath @"/signin"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
 @interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate>

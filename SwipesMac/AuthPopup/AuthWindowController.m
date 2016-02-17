@@ -14,6 +14,7 @@
 
 @implementation AuthWindowController
 -(void)loadAuthWithURLRequest:(NSURLRequest *)urlRequest{
+    //urlRequest = [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:@"http://facebook.com"]];
     [[self.webView mainFrame] loadRequest:urlRequest];
     [self.webView setGroupName:@"SwipesWeb"];
     
@@ -29,6 +30,11 @@
     BOOL use = YES;
     BOOL open = YES;
     NSLog(@"pop %@",request.URL.absoluteString);
+    if([request.URL.absoluteString hasPrefix:@"http://team.swipesapp.com/slacksuccess"]){
+        use = NO;
+        open = NO;
+        [self.delegate authController:self didAuthWithURLRequest:request];
+    }
     
     if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/v2.0/dialog/oauth"]){
         use = NO;

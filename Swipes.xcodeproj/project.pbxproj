@@ -14,6 +14,7 @@
 		A71FDDCC1A93B360008FA7FD /* swipes-notification.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */; };
 		A734FCD11B2FECDE00C78834 /* AuthWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */; };
 		A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */; };
+		A73C11451B90FA26002FC437 /* swipes-message-sound.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A73C11441B90FA26002FC437 /* swipes-message-sound.aiff */; };
 		A75D79FB1A94BE6A00846ADB /* swipes-priority.aiff in Resources */ = {isa = PBXBuildFile; fileRef = A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */; };
 		A798D6EF1A95020300BF5D22 /* BackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E11A95020300BF5D22 /* BackgroundView.m */; };
 		A798D6F01A95020300BF5D22 /* MenubarController.m in Sources */ = {isa = PBXBuildFile; fileRef = A798D6E31A95020300BF5D22 /* MenubarController.m */; };
@@ -50,6 +51,7 @@
 		A734FCCE1B2FECDE00C78834 /* AuthWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AuthWindowController.h; path = AuthPopup/AuthWindowController.h; sourceTree = "<group>"; };
 		A734FCCF1B2FECDE00C78834 /* AuthWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AuthWindowController.m; path = AuthPopup/AuthWindowController.m; sourceTree = "<group>"; };
 		A734FCD01B2FECDE00C78834 /* AuthWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AuthWindowController.xib; path = AuthPopup/AuthWindowController.xib; sourceTree = "<group>"; };
+		A73C11441B90FA26002FC437 /* swipes-message-sound.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-message-sound.aiff"; sourceTree = "<group>"; };
 		A757846C1B31C5D100FCE3DB /* Swipes.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Swipes.entitlements; sourceTree = "<group>"; };
 		A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */ = {isa = PBXFileReference; lastKnownFileType = audio.aiff; path = "swipes-priority.aiff"; sourceTree = "<group>"; };
 		A798D6E01A95020300BF5D22 /* BackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundView.h; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 				A7CF37801AB05D920030C7B4 /* CustomWebView.m */,
 				A798D6DF1A95020300BF5D22 /* AddPanel */,
 				A75D79FA1A94BE6A00846ADB /* swipes-priority.aiff */,
+				A73C11441B90FA26002FC437 /* swipes-message-sound.aiff */,
 				A71FDDCB1A93B360008FA7FD /* swipes-notification.aiff */,
 				A71FDD8D1A93B0EF008FA7FD /* AppDelegate.h */,
 				A71FDD8E1A93B0EF008FA7FD /* AppDelegate.m */,
@@ -282,6 +285,7 @@
 				A798D6F61A95020300BF5D22 /* StatusHighlighted.png in Resources */,
 				A734FCD21B2FECDE00C78834 /* AuthWindowController.xib in Resources */,
 				A71FDD931A93B0EF008FA7FD /* Images.xcassets in Resources */,
+				A73C11451B90FA26002FC437 /* swipes-message-sound.aiff in Resources */,
 				A71FDD961A93B0EF008FA7FD /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,13 +458,13 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Stanimir Karoserov (QBRLTQ3W2V)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Kasper Tornoee (C6VT946UE3)";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Swipes;
-				PROVISIONING_PROFILE = "2351d2eb-319d-47ab-bf6c-b1960a06f780";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -473,13 +477,13 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Swipes.entitlements;
-				CODE_SIGN_IDENTITY = "Mac Developer: Stanimir Karoserov (QBRLTQ3W2V)";
+				CODE_SIGN_IDENTITY = "Mac Developer: Kasper Tornoee (C6VT946UE3)";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_NAME = Swipes;
-				PROVISIONING_PROFILE = "2351d2eb-319d-47ab-bf6c-b1960a06f780";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -16,13 +16,14 @@
 #import "SPHotKeyManager.h"
 
 //#ifdef DEBUG
-//#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+//#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000"
 //#else
-#define kWebAddress @"https://web.swipesapp.com" //@"http://localhost:9000" //@"http://facebook.com" //
+#define kWebAddress @"http://team.swipesapp.com" //@"http://localhost:9000" //
 //#endif
+#define kLoginPath @"/loginslack/"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
-@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol>
+@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
@@ -79,7 +80,7 @@
         [prefs setLocalStorageEnabled:YES];
         [self.webView setPreferences:prefs];
     }
-    self.menubarController = [[MenubarController alloc] init];
+    //self.menubarController = [[MenubarController alloc] init];
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
@@ -107,8 +108,15 @@
         NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
         NSArray *notifications = [dictData objectForKey:@"notifications"];
+        NSLog(@"here %@",dictData);
         [self handleNotifications:notifications];
         responseCallback(@"success");
+    }];
+    [self.bridge registerHandler:@"notify" handler:^(id data, WVJBResponseCallback responseCallback) {
+        NSDictionary *dictData = data;
+        NSLog(@"%@",dictData);
+        NSString *sound = @"swipes-message-sound.aiff";
+        [self fireNotification:[dictData objectForKey:@"title"] message:[dictData objectForKey:@"message"] delivery:[dictData objectForKey:@"delivery"] sound:sound userInfo:[dictData objectForKey:@"userInfo"]];
     }];
 }
 -(void)loadPage{
@@ -239,7 +247,7 @@
     BOOL open = YES;
     // Unset notifications and badge counter
     
-    if([request.URL.absoluteString isEqualToString:[kWebAddress stringByAppendingString:@"/login/"]]){
+    if([request.URL.absoluteString isEqualToString:[kWebAddress stringByAppendingString:kLoginPath]]){
         [[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionToken"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -254,6 +262,17 @@
     else{
         use = NO;
         NSLog(@"%@",request.URL.absoluteString);
+    }
+    
+    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"]){
+        //use = YES;
+        open = NO;
+        self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
+        self.authPopup.delegate = self;
+        [self.authPopup showWindow:self.authPopup];
+        NSLog(@"%@",request);
+        [self.authPopup loadAuthWithURLRequest:request];
+        [self.authPopup.window makeKeyWindow];
     }
     if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
         use = YES;
@@ -281,9 +300,29 @@
 }
 
 -(void)authController:(AuthWindowController *)authController didAuthWithURLRequest:(NSURLRequest *)urlRequest{
-    NSString *javascriptString = [NSString stringWithFormat:@"window.open(\"%@\")",urlRequest.URL.absoluteString];
-    
-    NSLog(@"%@",[self.webView stringByEvaluatingJavaScriptFromString:javascriptString]);
+    NSString *javascriptString;
+    if([urlRequest.URL.absoluteString hasPrefix:@"http://team.swipesapp.com/slacksuccess"]){
+        NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
+        for (NSString *qs in [urlRequest.URL.query componentsSeparatedByString:@"&"]) {
+            // Get the parameter name
+            NSString *key = [[qs componentsSeparatedByString:@"="] objectAtIndex:0];
+            // Get the parameter value
+            NSString *value = [[qs componentsSeparatedByString:@"="] objectAtIndex:1];
+            value = [value stringByReplacingOccurrencesOfString:@"+" withString:@" "];
+            value = [value stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            
+            queryStrings[key] = value;
+        }
+        NSLog(@"running %@",queryStrings);
+        if(queryStrings[@"code"] && queryStrings[@"state"])
+            javascriptString = [NSString stringWithFormat:@"window.loginView.handleSlackSuccess(\"%@\",\"%@\")",queryStrings[@"code"],queryStrings[@"state"]];
+    }
+    else{
+        javascriptString = [NSString stringWithFormat:@"window.open(\"%@\")",urlRequest.URL.absoluteString];
+    }
+    NSLog(@"javascript %@",javascriptString);
+    if(javascriptString)
+        NSLog(@"%@",[self.webView stringByEvaluatingJavaScriptFromString:javascriptString]);
     //[[self.webView mainFrame] loadRequest:urlRequest];
     [authController close];
 }
@@ -307,7 +346,31 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
     }
 }
  */
-
+- (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
+{
+    // Create the File Open Dialog class.
+    NSOpenPanel* openDlg = [NSOpenPanel openPanel];
+    
+    // Enable the selection of files in the dialog.
+    [openDlg setCanChooseFiles:YES];
+    
+    // Enable the selection of directories in the dialog.
+    [openDlg setCanChooseDirectories:NO];
+    [openDlg beginWithCompletionHandler:^(NSInteger result) {
+        if(result == NSFileHandlingPanelOKButton){
+            NSArray* files = [[openDlg URLs]valueForKey:@"relativePath"];
+            [resultListener chooseFilenames:files];
+        }
+        
+    }];
+    /*
+    if ( [openDlg runModal] == NSOKButton )
+    {
+        NSArray* files = [[openDlg URLs]valueForKey:@"relativePath"];
+        [resultListener chooseFilenames:files];
+    }*/
+    
+}
 
 - (NSArray *)webView:(WebView *)sender contextMenuItemsForElement:(NSDictionary *)element defaultMenuItems:(NSArray *)defaultMenuItems
 {
@@ -321,6 +384,21 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
     }
     //NSLog(@"element: %@", el.nodeName);
     return nil;
+}
+
+-(void)fireNotification:(NSString*)title message:(NSString*)message delivery:(NSDate*)delivery sound:(NSString*)sound userInfo:(NSDictionary*)userInfo{
+    NSUserNotification *notification = [[NSUserNotification alloc] init];
+    notification.title = title;
+    notification.informativeText = message;
+    notification.soundName = @"swipes-notification.aiff";
+    if(sound)
+        notification.soundName = sound;
+    notification.deliveryDate = [NSDate date];
+    if(delivery)
+        notification.deliveryDate = delivery;
+    notification.userInfo = userInfo;
+    NSLog(@"%@",notification);
+    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
 }
 
 -(void)handleNotifications:(NSArray*)notifications{
@@ -453,7 +531,7 @@ void *kContextActivePanel = &kContextActivePanel;
 }
 
 #pragma mark - Public accessors
-
+/*
 - (PanelController *)panelController
 {
     if (_panelController == nil) {
@@ -469,5 +547,5 @@ void *kContextActivePanel = &kContextActivePanel;
 {
     return self.menubarController.statusItemView;
 }
-
+*/
 @end

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="7706"/>
-        <plugIn identifier="com.apple.WebKitIBPlugin" version="7706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9531"/>
+        <plugIn identifier="com.apple.WebKitIBPlugin" version="9531"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -74,12 +74,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="File" id="bib-Uj-vzu">
                         <items>
-                            <menuItem title="New Task" tag="7" keyEquivalent="n" id="33e-hl-eWv">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="fzy-1V-is9"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="lCU-W9-5qc"/>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
                                     <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>
@@ -311,33 +305,12 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="View" id="HyV-fh-RgO">
                         <items>
-                            <menuItem title="Later" tag="2" keyEquivalent="1" id="Rao-Lc-Mon">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="VI5-qJ-Acd"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Now" tag="3" keyEquivalent="2" id="qaG-b4-3MY">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="ABM-IA-8LB"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Done" tag="4" keyEquivalent="3" id="n0R-ws-Rum">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="cKs-vA-P8h"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="9yT-zO-MD9"/>
-                            <menuItem title="Add Task" tag="7" alternate="YES" keyEquivalent="n" id="zxv-gq-rty">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="zZm-4X-yoo"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Search" tag="5" keyEquivalent="f" id="ARH-g8-8gd">
+                            <menuItem title="Workspace" tag="2" keyEquivalent="1" id="ARH-g8-8gd" userLabel="Workspace">
                                 <connections>
                                     <action selector="openMenu:" target="Voe-Tx-rLC" id="C5z-c8-dsN"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Workspaces" tag="6" keyEquivalent="d" id="vv6-CC-4f7">
+                            <menuItem title="Services" tag="6" keyEquivalent="2" id="vv6-CC-4f7" userLabel="Services">
                                 <connections>
                                     <action selector="openMenu:" target="Voe-Tx-rLC" id="AS5-XJ-mEz"/>
                                 </connections>
@@ -346,11 +319,6 @@
                             <menuItem title="Reload Swipes" keyEquivalent="r" id="Rf1-pu-Mv8">
                                 <connections>
                                     <action selector="reloadWebview:" target="Voe-Tx-rLC" id="ia0-D6-5ze"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Keyboard Shortcuts" tag="10" keyEquivalent="/" id="967-Os-V0V">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="FqD-4N-vZQ"/>
                                 </connections>
                             </menuItem>
                             <menuItem title="Enter Fullscreen" keyEquivalent="f" id="Y4j-6a-2P4">
@@ -366,12 +334,6 @@
                     <modifierMask key="keyEquivalentModifierMask"/>
                     <menu key="submenu" title="Window" systemMenu="window" id="Td7-aD-5lo">
                         <items>
-                            <menuItem title="Add to Swipes" keyEquivalent="A" id="75K-jK-dk8">
-                                <connections>
-                                    <action selector="addToSwipes:" target="Voe-Tx-rLC" id="MDn-dW-uPw"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem isSeparatorItem="YES" id="SUt-kJ-4u4"/>
                             <menuItem title="Minimize" keyEquivalent="m" id="OY7-WF-poV">
                                 <connections>
                                     <action selector="performMiniaturize:" target="-1" id="VwT-WD-YPe"/>
@@ -403,17 +365,6 @@
                                     <action selector="openMenu:" target="Voe-Tx-rLC" id="1J9-1b-3ec"/>
                                 </connections>
                             </menuItem>
-                            <menuItem title="Contact Swipes" tag="9" id="wjG-q6-nAT">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="LAd-qB-y4q"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Keyboard Shortcuts" tag="10" keyEquivalent="/" id="EqL-jR-dRD">
-                                <connections>
-                                    <action selector="openMenu:" target="Voe-Tx-rLC" id="l65-8z-fsw"/>
-                                </connections>
-                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
@@ -423,7 +374,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
             <rect key="contentRect" x="696" y="430" width="1024" height="768"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1440" height="877"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="400" height="400"/>
             <view key="contentView" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>

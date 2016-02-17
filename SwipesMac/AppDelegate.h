@@ -9,11 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <WebKit/WebKit.h>
 
-#import "MenubarController.h"
-#import "PanelController.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate, PanelControllerDelegate>
-@property (nonatomic, strong) MenubarController *menubarController;
-@property (nonatomic, strong, readonly) PanelController *panelController;
+@interface AppDelegate : NSObject <NSApplicationDelegate>
 
 @end

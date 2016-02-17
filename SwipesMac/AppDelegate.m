@@ -33,8 +33,6 @@
 @end
 
 @implementation AppDelegate
-@synthesize panelController = _panelController;
-@synthesize menubarController = _menubarController;
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     
     [[NSUserNotificationCenter defaultUserNotificationCenter] setDelegate:self];
@@ -84,34 +82,16 @@
     [self.window setContentView:self.webView];
     [self.window setTitle:@"Swipes"];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateWebview) name:@"refresh-webview" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addTask:) name:@"add-task" object:nil];
     
     [self.window makeFirstResponder: self.webView];
     [self registerKeyboardHandler];
 }
 -(void)registerBridge{
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        if([data isKindOfClass:[NSDictionary class]]){
-            NSString *sessionToken = [data objectForKey:@"sessionToken"];
-            NSLog(@"session %@",sessionToken);
-            if(sessionToken){
-                [[NSUserDefaults standardUserDefaults] setObject:sessionToken forKey:@"sessionToken"];
-                [[NSUserDefaults standardUserDefaults] synchronize];
-            }
-        }
         [self.bridge callHandler:@"register-notifications"];
         responseCallback(@"Right back atcha");
     }];
-    [self.bridge registerHandler:@"update-notification" handler:^(id data, WVJBResponseCallback responseCallback) {
-        NSDictionary *dictData = data;
-        NSNumber *number = [dictData objectForKey:@"number"];
-        NSString *badgeString = [number isEqualToNumber:@(0)] ? @"" : [number stringValue];
-        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:badgeString];
-        NSArray *notifications = [dictData objectForKey:@"notifications"];
-        NSLog(@"here %@",dictData);
-        [self handleNotifications:notifications];
-        responseCallback(@"success");
-    }];
+    
     [self.bridge registerHandler:@"notify" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dictData = data;
         NSLog(@"%@",dictData);
@@ -125,7 +105,7 @@
 -(void)registerKeyboardHandler{
     SPHotKeyManager *hotKeyManager = [SPHotKeyManager instance];
     SPHotKey *hk = [[SPHotKey alloc] initWithTarget:self
-                                    action:@selector(addToSwipes:)
+                                    action:@selector(openIfClosed)
                                    object:nil
                                   keyCode:kVK_ANSI_A
                             modifierFlags:(NSShiftKeyMask|NSCommandKeyMask)];
@@ -135,38 +115,17 @@
 
 -(IBAction)openMenu:(id)sender{
     NSButton *senderButton = (NSButton*)sender;
-    NSString *path = @"list/todo";
+    NSString *path = @"workspace";
     [self openIfClosed];
     switch (senderButton.tag) {
         case 1:
             path = @"settings";
             break;
-        case 2:
-            path = @"list/scheduled";
-            break;
-        case 3:
-            path = @"list/todo";
-            break;
-        case 4:
-            path = @"list/completed";
-            break;
-        case 5:
-            path = @"search";
-            break;
         case 6:
-            path = @"workspaces";
-            break;
-        case 7:
-            path = @"add";
+            path = @"workspace";
             break;
         case 8:
             [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"http://support.swipesapp.com"]];
-            return;
-        case 9:
-            [self.bridge callHandler:@"intercom"];
-            return;
-        case 10:
-            [self.bridge callHandler:@"trigger" data:@"show-keyboard-shortcuts"];
             return;
     }
     [self.bridge callHandler:@"navigate" data:path];
@@ -181,18 +140,7 @@
     }
 }
 
--(IBAction)addToSwipes:(id)sender{
-    [self togglePanel:self];
-}
--(void)openAddSwipesWithEvent:(NSEvent *)hkEvent object:(AppDelegate*)appDelegate{
-    [self.panelController openPanel];
-}
 
--(void)addTask:(NSNotification*)notification{
-    [self.bridge callHandler:@"add-task" data:notification.userInfo responseCallback:^(id responseData) {
-        NSLog(@"response %@",responseData);
-    }];
-}
 -(void)updateWebview{
     [self.bridge callHandler:@"refresh"];
 }
@@ -227,15 +175,10 @@
     
     return NSAlertFirstButtonReturn == response;
 }
+
+
 - (WebView *)webView:(WebView *)sender createWebViewWithRequest:(NSURLRequest *)request
 {
-    // HACK: This is all a hack to get around a bug/misfeature in Tiger's WebKit
-    // (should be fixed in Leopard). On Javascript window.open, Tiger sends a null
-    // request here, then sends a loadRequest: to the new WebView, which will
-    // include a decidePolicyForNavigation (which is where we'll open our
-    // external window). In Leopard, we should be getting the request here from
-    // the start, and we should just be able to create a new window.
-    
     WebView *newWebView = [[WebView alloc] init];
     [newWebView setUIDelegate:self];
     [newWebView setPolicyDelegate:self];
@@ -243,16 +186,11 @@
 }
 
 - (void)webView:(WebView *)sender decidePolicyForNavigationAction:(NSDictionary *)actionInformation request:(NSURLRequest *)request frame:(WebFrame *)frame decisionListener:(id<WebPolicyDecisionListener>)listener {
+    NSLog(@"%@", request.URL.absoluteString);
     BOOL use = YES;
     BOOL open = YES;
     // Unset notifications and badge counter
     
-    if([request.URL.absoluteString isEqualToString:[kWebAddress stringByAppendingString:kLoginPath]]){
-        [[[NSApplication sharedApplication] dockTile] setBadgeLabel:@""];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"sessionToken"];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [self handleNotifications:@[]];
-    }
     if( [sender isEqual:self.webView] ) {
         
         if([request.URL.absoluteString hasPrefix:@"mailto:"]){
@@ -264,30 +202,22 @@
         NSLog(@"%@",request.URL.absoluteString);
     }
     
-    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"]){
+    // Make some general OAuth Handler ....
+    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"] || [request.URL.absoluteString hasPrefix:@"https://swipes.atlassian.net/plugins/servlet/oauth/authorize"]){
         //use = YES;
+        NSString *serviceName;
+        if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"])
+            serviceName = @"slack";
+        if([request.URL.absoluteString hasPrefix:@"https://swipes.atlassian.net/plugins/servlet/oauth/authorize"])
+            serviceName = @"jira";
         open = NO;
         self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
         self.authPopup.delegate = self;
-        [self.authPopup showWindow:self.authPopup];
-        NSLog(@"%@",request);
-        [self.authPopup loadAuthWithURLRequest:request];
-        [self.authPopup.window makeKeyWindow];
-    }
-    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/dialog/oauth"]){
-        use = YES;
-    }
-    if([request.URL.absoluteString hasPrefix:@"https://www.facebook.com/login.php"]){
-        use = YES;
-        NSLog(@"running login popup");
-        
-        self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
-        self.authPopup.delegate = self;
+        self.authPopup.serviceName = serviceName;
         [self.authPopup showWindow:self.authPopup];
         [self.authPopup loadAuthWithURLRequest:request];
         [self.authPopup.window makeKeyWindow];
     }
-    
     
     if(use){
         [listener use];
@@ -301,7 +231,7 @@
 
 -(void)authController:(AuthWindowController *)authController didAuthWithURLRequest:(NSURLRequest *)urlRequest{
     NSString *javascriptString;
-    if([urlRequest.URL.absoluteString hasPrefix:@"http://team.swipesapp.com/slacksuccess"]){
+    if([urlRequest.URL.absoluteString hasPrefix:@"http://dev.swipesapp.com/oauth-success.html"]){
         NSMutableDictionary *queryStrings = [[NSMutableDictionary alloc] init];
         for (NSString *qs in [urlRequest.URL.query componentsSeparatedByString:@"&"]) {
             // Get the parameter name
@@ -313,14 +243,21 @@
             
             queryStrings[key] = value;
         }
-        NSLog(@"running %@",queryStrings);
-        if(queryStrings[@"code"] && queryStrings[@"state"])
-            javascriptString = [NSString stringWithFormat:@"window.loginView.handleSlackSuccess(\"%@\",\"%@\")",queryStrings[@"code"],queryStrings[@"state"]];
+        
+        NSError *error;
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:queryStrings
+                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                             error:&error];
+        
+        if (!jsonData) {
+            NSLog(@"Got an error: %@", error);
+        } else {
+            NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSLog(@"return from OAuth %@, %@",authController.serviceName, jsonString);
+            javascriptString = [NSString stringWithFormat:@"window.OAuthHandler.onHandleAuthSuccess(\"%@\", \"%@\")", authController.serviceName, jsonString];
+        }
+        
     }
-    else{
-        javascriptString = [NSString stringWithFormat:@"window.open(\"%@\")",urlRequest.URL.absoluteString];
-    }
-    NSLog(@"javascript %@",javascriptString);
     if(javascriptString)
         NSLog(@"%@",[self.webView stringByEvaluatingJavaScriptFromString:javascriptString]);
     //[[self.webView mainFrame] loadRequest:urlRequest];
@@ -332,20 +269,7 @@
     [[NSWorkspace sharedWorkspace] openURL:[actionInformation objectForKey:WebActionOriginalURLKey]];
     [listener ignore];
 }
-/*- (void)webView:(WebView *)webView decidePolicyForNavigationAction:(NSDictionary *)actionInformation
-        request:(NSURLRequest *)request
-          frame:(WebFrame *)frame
-decisionListener:(id<WebPolicyDecisionListener>)listener
-{
-    NSLog(@"%@",request.URL.absoluteString);
-    if([request.URL.absoluteString hasPrefix:@"mailto:"] || [request.URL.absoluteString hasPrefix:@"https://twitter.com"])
-    {
-        [[NSWorkspace sharedWorkspace] openURL:request.URL];
-        [listener ignore];
-        return;
-    }
-}
- */
+
 - (void)webView:(WebView *)sender runOpenPanelForFileButtonWithResultListener:(id < WebOpenPanelResultListener >)resultListener
 {
     // Create the File Open Dialog class.
@@ -363,12 +287,6 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
         }
         
     }];
-    /*
-    if ( [openDlg runModal] == NSOKButton )
-    {
-        NSArray* files = [[openDlg URLs]valueForKey:@"relativePath"];
-        [resultListener chooseFilenames:files];
-    }*/
     
 }
 
@@ -401,53 +319,6 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
     [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
 }
 
--(void)handleNotifications:(NSArray*)notifications{
-    for( NSUserNotification *notification in [[NSUserNotificationCenter defaultUserNotificationCenter] scheduledNotifications]){
-        [[NSUserNotificationCenter defaultUserNotificationCenter] removeScheduledNotification:notification];
-    }
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"]];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"];
-
-    NSDate *currentDate;
-    NSDate *lastScheduledDate;
-    //NSDate *schedDate = [[NSDate date] dateByAddingTimeInterval:4];
-    for (NSDictionary *notifObject in notifications){
-        NSString *title = [notifObject objectForKey:@"title"];
-        NSString *identifier = [notifObject objectForKey:@"objectId"];
-        NSString *dateString = [notifObject objectForKey:@"schedule"];
-        NSDate *scheduleDate = [dateFormatter dateFromString:dateString];
-        //scheduleDate = schedDate;
-        NSNumber *priority = [notifObject objectForKey:@"priority"];
-        BOOL isPriority = NO;
-        if(priority && (id)priority != [NSNull null] && [priority integerValue] == 1){
-            isPriority = YES;
-        }
-        
-        if([scheduleDate isEqualToDate:currentDate]){
-            if(lastScheduledDate){
-                scheduleDate = [lastScheduledDate dateByAddingTimeInterval:2];
-            }
-        }
-        else{
-            currentDate = scheduleDate;
-        }
-        NSString *type = isPriority ? @"priority" : @"normal";
-        [self scheduleNotificationForTime:scheduleDate withTitle:title informativeText:nil priority:isPriority userInfo:@{@"type":type,@"identifier":identifier}];
-        lastScheduledDate = scheduleDate;
-        
-    }
-}
--(void)scheduleNotificationForTime:(NSDate*)date withTitle:(NSString*)title informativeText:(NSString*)informativeText priority:(BOOL)priority userInfo:(NSDictionary*)userInfo{
-    NSUserNotification *notification = [[NSUserNotification alloc] init];
-    notification.title = title;
-    notification.informativeText = informativeText;
-    notification.soundName = @"swipes-notification.aiff";
-    notification.deliveryDate = date;
-    notification.userInfo = userInfo;
-    [[NSUserNotificationCenter defaultUserNotificationCenter] scheduleNotification:notification];
-}
 
 
 
@@ -460,39 +331,8 @@ decisionListener:(id<WebPolicyDecisionListener>)listener
 - (BOOL)userNotificationCenter:(NSUserNotificationCenter *)center shouldPresentNotification:(NSUserNotification *)notification{
     return YES;
 }
-- (void) userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification
-{
-    //NSLog(@"activate %@", [notification.userInfo objectForKey:@"identifier"]);
-}
-
-- (void) userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification
-{
-    /*if([NSApplication sharedApplication].isActive){
-        NSSound *notifSound = [NSSound soundNamed:@"swipes-priority.aiff"];
-        [notifSound play];
-    }*/
-    //NSLog(@"deliver %@",notification);
-}
-
-
-- (void)dealloc
-{
-    [_panelController removeObserver:self forKeyPath:@"hasActivePanel"];
-}
 
 #pragma mark -
-
-void *kContextActivePanel = &kContextActivePanel;
-
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
-{
-    if (context == kContextActivePanel) {
-        self.menubarController.hasActiveIcon = self.panelController.hasActivePanel;
-    }
-    else {
-        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
-    }
-}
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication *)sender hasVisibleWindows:(BOOL)flag{
     
@@ -509,43 +349,7 @@ void *kContextActivePanel = &kContextActivePanel;
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
     // Explicitly remove the icon from the menu bar
-    self.menubarController = nil;
     return NSTerminateNow;
 }
 
-#pragma mark - Actions
-/*- (IBAction)performClose:(id)sender{
-    NSLog(@"performing close");
-}*/
-- (void)togglePanel:(id)sender
-{
-    NSString *sessionToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"sessionToken"];
-    if(sessionToken && sessionToken.length > 0){
-        [self.window close];
-        self.menubarController.hasActiveIcon = !self.menubarController.hasActiveIcon;
-        self.panelController.hasActivePanel = self.menubarController.hasActiveIcon;
-    }
-    else{
-        [self openIfClosed];
-    }
-}
-
-#pragma mark - Public accessors
-/*
-- (PanelController *)panelController
-{
-    if (_panelController == nil) {
-        _panelController = [[PanelController alloc] initWithDelegate:self];
-        [_panelController addObserver:self forKeyPath:@"hasActivePanel" options:0 context:kContextActivePanel];
-    }
-    return _panelController;
-}
-
-#pragma mark - PanelControllerDelegate
-
-- (StatusItemView *)statusItemViewForPanelController:(PanelController *)controller
-{
-    return self.menubarController.statusItemView;
-}
-*/
 @end

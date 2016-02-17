@@ -18,5 +18,6 @@
 
 @interface AuthWindowController : NSWindowController
 -(void)loadAuthWithURLRequest:(NSURLRequest*)urlRequest;
+@property (nonatomic) NSString *serviceName;
 @property (nonatomic, weak) NSObject<AuthWindowControllerProtocol> *delegate;
 @end

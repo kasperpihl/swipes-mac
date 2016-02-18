@@ -373,11 +373,11 @@
         <window title="Swipes" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" frameAutosaveName="MainView" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowCollectionBehavior key="collectionBehavior" fullScreenPrimary="YES"/>
-            <rect key="contentRect" x="696" y="430" width="1024" height="768"/>
+            <rect key="contentRect" x="696" y="430" width="1024" height="643"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="400" height="400"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
+                <rect key="frame" x="0.0" y="0.0" width="1024" height="643"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <webView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TuC-7t-r4A" customClass="CustomWebView">
@@ -388,6 +388,7 @@
                     </webView>
                 </subviews>
             </view>
+            <point key="canvasLocation" x="687" y="599.5"/>
         </window>
     </objects>
 </document>

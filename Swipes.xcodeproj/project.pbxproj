@@ -190,7 +190,7 @@
 		A71FDD801A93B0EF008FA7FD /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = "Swipes ApS";
 				TargetAttributes = {
 					A71FDD871A93B0EF008FA7FD = {
@@ -332,6 +332,7 @@
 				CODE_SIGN_IDENTITY = "3rd Party Mac Developer Application: Swipes Incorporated (85LTPM52WY)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -404,6 +405,7 @@
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swipesapp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Swipes;
 				PROVISIONING_PROFILE = "";
 			};
@@ -423,6 +425,7 @@
 				INFOPLIST_FILE = SwipesMac/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.swipesapp.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Swipes;
 				PROVISIONING_PROFILE = "";
 			};

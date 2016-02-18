@@ -18,7 +18,7 @@
 //#ifdef DEBUG
 //#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000"
 //#else
-#define kWebAddress @"http://dev.swipesapp.com" //@"http://localhost:9000" //
+#define kWebAddress @"http://dev.swipesapp.com" // @"http://localhost:3000" //
 //#endif
 #define kLoginPath @"/signin"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
@@ -246,7 +246,7 @@
         
         NSError *error;
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:queryStrings
-                                                           options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                           options:0 // Pass 0 if you don't care about the readability of the generated string
                                                              error:&error];
         
         if (!jsonData) {
@@ -254,7 +254,7 @@
         } else {
             NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
             NSLog(@"return from OAuth %@, %@",authController.serviceName, jsonString);
-            javascriptString = [NSString stringWithFormat:@"window.OAuthHandler.onHandleAuthSuccess(\"%@\", \"%@\")", authController.serviceName, jsonString];
+            javascriptString = [NSString stringWithFormat:@"window.OAuthHandler.handleOAuthSuccess(\"%@\", %@)", authController.serviceName, jsonString];
         }
         
     }

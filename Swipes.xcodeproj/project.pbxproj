@@ -174,6 +174,7 @@
 				A71FDD851A93B0EF008FA7FD /* Frameworks */,
 				A71FDD861A93B0EF008FA7FD /* Resources */,
 				E7A5D5B7F9233514BEC3AF20 /* Copy Pods Resources */,
+				3BBCE9A46259BF670CD92407 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -239,6 +240,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		3BBCE9A46259BF670CD92407 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Swipes/Pods-Swipes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		A757846A1B31C22100FCE3DB /* Increment build number */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 8;

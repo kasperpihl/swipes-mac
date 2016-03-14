@@ -23,7 +23,7 @@
 #define kLoginPath @"/signin"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
-@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate>
+@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate, WebViewJavascriptBridgeBaseDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
@@ -87,10 +87,9 @@
     [self registerKeyboardHandler];
 }
 -(void)registerBridge{
-    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView webViewDelegate:self handler:^(id data, WVJBResponseCallback responseCallback) {
-        [self.bridge callHandler:@"register-notifications"];
-        responseCallback(@"Right back atcha");
-    }];
+    self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
+    [self.bridge setWebViewDelegate:self];
+    [self.bridge callHandler:@"register-notifications"];
     
     [self.bridge registerHandler:@"notify" handler:^(id data, WVJBResponseCallback responseCallback) {
         NSDictionary *dictData = data;
@@ -203,13 +202,13 @@
     }
     
     // Make some general OAuth Handler ....
-    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"] || [request.URL.absoluteString hasPrefix:@"https://swipes.atlassian.net/plugins/servlet/oauth/authorize"]){
+    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"] || [request.URL.absoluteString hasPrefix:@"https://app.asana.com/-/oauth_authorize"]){
         //use = YES;
         NSString *serviceName;
         if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"])
             serviceName = @"slack";
-        if([request.URL.absoluteString hasPrefix:@"https://swipes.atlassian.net/plugins/servlet/oauth/authorize"])
-            serviceName = @"jira";
+        if([request.URL.absoluteString hasPrefix:@"https://app.asana.com/-/oauth_authorize"])
+            serviceName = @"asana";
         open = NO;
         self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
         self.authPopup.delegate = self;

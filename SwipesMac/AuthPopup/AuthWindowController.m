@@ -30,7 +30,7 @@
     BOOL use = YES;
     BOOL open = YES;
     
-    if([request.URL.absoluteString hasPrefix:@"http://dev.swipesapp.com/oauth-success.html"]){
+    if([request.URL.absoluteString hasPrefix:@"http://dev.swipesapp.com/oauth-success.html"] || [request.URL.absoluteString hasPrefix:@"https://dev.swipesapp.com/oauth-success.html"]){
         use = NO;
         open = NO;
         [self.delegate authController:self didAuthWithURLRequest:request];

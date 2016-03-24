@@ -18,12 +18,12 @@
 //#ifdef DEBUG
 //#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000"
 //#else
-#define kWebAddress @"http://dev.swipesapp.com" // @"http://localhost:3000" //
+#define kWebAddress @"http://localhost:3000" // @"http://localhost:3000" //
 //#endif
 #define kLoginPath @"/signin"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
 
-@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate, WebViewJavascriptBridgeBaseDelegate>
+@interface AppDelegate () <NSUserNotificationCenterDelegate, NSSharingServicePickerDelegate, AuthWindowControllerProtocol, WebUIDelegate, WebResourceLoadDelegate, WebPolicyDelegate>
 
 @property (weak) IBOutlet NSWindow *window;
 @property (assign) IBOutlet WebView *webView;
@@ -88,7 +88,6 @@
 }
 -(void)registerBridge{
     self.bridge = [WebViewJavascriptBridge bridgeForWebView:self.webView];
-    [self.bridge setWebViewDelegate:self];
     [self.bridge callHandler:@"register-notifications"];
     
     [self.bridge registerHandler:@"notify" handler:^(id data, WVJBResponseCallback responseCallback) {

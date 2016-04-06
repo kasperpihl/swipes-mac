@@ -18,7 +18,7 @@
 //#ifdef DEBUG
 //#define kWebAddress @"http://beta.swipesapp.com" //@"http://localhost:9000"
 //#else
-#define kWebAddress @"http://localhost:3000" // @"http://localhost:3000" //
+#define kWebAddress @"https://dev.swipesapp.com" // @"http://localhost:3000" //
 //#endif
 #define kLoginPath @"/signin"
 #define kWebUrlRequest [NSURLRequest requestWithURL:[NSURL URLWithString:kWebAddress]]
@@ -201,13 +201,21 @@
     }
     
     // Make some general OAuth Handler ....
-    if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"] || [request.URL.absoluteString hasPrefix:@"https://app.asana.com/-/oauth_authorize"]){
+    if([request.URL.absoluteString hasPrefix:@"https://dev.swipesapp.com/v1/services.authorize"]){
         //use = YES;
-        NSString *serviceName;
-        if([request.URL.absoluteString hasPrefix:@"https://slack.com/oauth/authorize"])
-            serviceName = @"slack";
-        if([request.URL.absoluteString hasPrefix:@"https://app.asana.com/-/oauth_authorize"])
-            serviceName = @"asana";
+        
+        NSMutableDictionary *queryStringDictionary = [[NSMutableDictionary alloc] init];
+        NSArray *urlComponents = [request.URL.query componentsSeparatedByString:@"&"];
+        for (NSString *keyValuePair in urlComponents)
+        {
+            NSArray *pairComponents = [keyValuePair componentsSeparatedByString:@"="];
+            NSString *key = [[pairComponents firstObject] stringByRemovingPercentEncoding];
+            NSString *value = [[pairComponents lastObject] stringByRemovingPercentEncoding];
+            
+            [queryStringDictionary setObject:value forKey:key];
+        }
+        NSString *serviceName = [queryStringDictionary objectForKey:@"service"];
+        
         open = NO;
         self.authPopup = [[AuthWindowController alloc] initWithWindowNibName:@"AuthWindowController"];
         self.authPopup.delegate = self;
